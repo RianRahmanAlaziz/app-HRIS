@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/loginstyle.css">
+<link rel="stylesheet" href="assets/css/loginstyle.css">
 </head>
 <body>
 <div id="stars"></div>
@@ -23,15 +23,18 @@
                 <div class="center-wrap">
                   <div class="section text-center">
                     <h4 class="mb-4 pb-3">Log In</h4>
+                    <form action="/login" method="POST">
+                      @csrf
                     <div class="form-group">
-                      <input type="email" class="form-style" placeholder="Email">
+                      <input type="email" name="email" id="email" class="form-style" placeholder="Email">
                       <i class="input-icon uil uil-at"></i>
                     </div>	
                     <div class="form-group mt-2">
-                      <input type="password" class="form-style" placeholder="Password">
+                      <input type="password" name="password" id="password" class="form-style" placeholder="Password">
                       <i class="input-icon uil uil-lock-alt"></i>
                     </div>
-                    <a href="" class="btn mt-4">Login</a>
+                    <button type="submit" class="btn mt-4">Login</button>
+                  </form>
                       </div>
                     </div>
                   </div>
