@@ -1,17 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Log In</title>
+  <title>{{ $title }}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="assets/css/loginstyle.css">
 </head>
 <body>
-<div id="stars"></div>
-<div id="stars2"></div>
-<div id="stars3"></div>
 <div class="section">
   <div class="container">
     <div class="row full-height justify-content-center">
@@ -26,7 +24,7 @@
                     <form action="/login" method="POST">
                       @csrf
                     <div class="form-group">
-                      <input type="email" name="email" id="email" class="form-style" placeholder="Email">
+                      <input type="email" name="email" id="email" class="form-style " placeholder="Email" autofocus required value="{{ old('email') }}">
                       <i class="input-icon uil uil-at"></i>
                     </div>	
                     <div class="form-group mt-2">
@@ -46,4 +44,17 @@
     </div>
 </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+    @if (session()->has('loginError'))
+    toastr.error("{{ session('loginError') }}")
+
+    @endif
+
+</script>
 </html>
+
+

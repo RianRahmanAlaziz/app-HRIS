@@ -7,10 +7,10 @@
             <span class="font-weight-bold text-lg">Dashboard</span>
         </a>
     </div>
-    <div class="collapse navbar-collapse px-4  w-auto " id="sidenav-collapse-main">
-        <ul class="navbar-nav">
+    <div class="collapse navbar-collapse px-4  w-auto accordion" id="sidenav-collapse-main">
+        <ul class="navbar-nav accordion" id="accordionSidebar" >
             <li class="nav-item" >
-                <a class="nav-link  {{ Route::currentRouteName() === 'dashboard' ? 'active' : '' }}"
+                <a class="nav-link  {{ Request::is('dashboard') ? 'active' : '' }}"
                     href="/dashboard" >
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center" >
@@ -37,10 +37,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  {{ Route::currentRouteName() === 'tabel' ? 'active' : '' }}"
-                    href="{{ route('tabel') }}">
-                    <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <a class="nav-link collapsed {{ Request::is('dashboard/karyawan*') ? 'active' : '' }}" href="#collapseTwo" data-bs-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>table</title>
@@ -63,8 +62,14 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1">Tables</span>
+                    <span class="nav-link-text ms-1">Data Master</span>
                 </a>
+
+                <div id="collapseTwo" class="collapse bg-white py-2 collapse-inner rounded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="#">Data User</a>
+                    <hr class="my-0">
+                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="/dashboard/karyawan">Data Karyawan</a>
+                  </div>
             </li>
 
  

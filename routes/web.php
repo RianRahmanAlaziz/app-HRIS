@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\logincontroller;
 use Illuminate\Support\Facades\Route;
 
@@ -15,17 +17,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('login', [
+        'title' => 'Login'
+    ]);
 })->name('login');
 
-Route::post('/login', [logincontroller::class, 'login']);
-Route::post('/logout', [logincontroller::class, 'logout']);
+
+Route::controller(Logincontroller::class)->group(function () {
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
+});
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard.dashboard');
-})->name('dashboard')->middleware('auth');
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/tabel', function () {
-    return view('dashboard.tabel');
-})->name('tabel');
+    Route::resource('/karyawan', KaryawanController::class);
+
+    Route::get('/user-profil', function () {
+        return view('dashboard.user-profil');
+    })->name('dashboard');
+});

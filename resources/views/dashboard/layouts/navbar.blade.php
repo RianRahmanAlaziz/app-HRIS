@@ -2,10 +2,10 @@
     <div class="container-fluid py-1 px-2">
         <nav aria-label="breadcrumb text-white">
             <ol class="breadcrumb bg-transparent mb-1 pb-0 pt-1 px-0 me-sm-6 me-5">
-                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Dashboard</a></li>
-                <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm text-white active" aria-current="page">{{ $title }}</li>
             </ol>
-            <h6 class="font-weight-bold mb-0 text-white">Dashboard</h6>
+            <h6 class="font-weight-bold mb-0 text-white">{{ $title }}</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -81,6 +81,9 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="a">
+                        <li class="mb-2">
+                            <a href="#" class="dropdown-item border-radius-md"><i class="fa-solid fa-user"></i>  Profil</a>
+                        </li>
                         <li class="mb-2">
                             <form action="/logout" method="post">
                                 @csrf

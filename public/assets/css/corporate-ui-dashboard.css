@@ -23410,7 +23410,7 @@ hr.horizontal.gray-light {
   font-weight: 700;
   content: "\f107";
   margin-left: auto;
-  color: rgba(30, 41, 59, 0.5);
+  color: rgba(255, 255, 255, 0.5);
   transition: all 0.2s ease-in-out;
 }
 
@@ -23421,7 +23421,7 @@ hr.horizontal.gray-light {
 }
 
 .navbar-vertical .navbar-nav .nav-link[data-bs-toggle="collapse"][aria-expanded="true"]:after {
-  color: #1e293b;
+  color: rgba(255, 255, 255, 0.5);
   transform: rotate(180deg);
 }
 
