@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\logincontroller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +33,9 @@ Route::controller(Logincontroller::class)->group(function () {
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::resource('/karyawan', KaryawanController::class);
+    Route::resource('/data-user-management', UserController::class);
+    Route::resource('/data-karyawan', KaryawanController::class);
+    Route::resource('/data-jabatan', JabatanController::class);
 
     Route::get('/user-profil', function () {
         return view('dashboard.user-profil');

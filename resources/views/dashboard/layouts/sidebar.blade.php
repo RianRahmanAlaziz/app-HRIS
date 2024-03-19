@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed {{ Request::is('dashboard/karyawan*') ? 'active' : '' }}" href="#collapseTwo" data-bs-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed {{ Request::is('dashboard/data-*') ? 'active' : '' }}" href="#collapseTwo" data-bs-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="false" aria-controls="collapseTwo">
                     <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
@@ -66,9 +66,11 @@
                 </a>
 
                 <div id="collapseTwo" class="collapse bg-white py-2 collapse-inner rounded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="#">Data User</a>
+                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="/dashboard/data-user-management">Data User</a>
                     <hr class="my-0">
-                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="/dashboard/karyawan">Data Karyawan</a>
+                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="/dashboard/data-karyawan">Data Karyawan</a>
+                    <hr class="my-0">
+                    <a class=" px-4 mt-2 mb-2 dropdown-item border-radius-md" href="/dashboard/data-jabatan">Data Jabatan</a>
                   </div>
             </li>
 

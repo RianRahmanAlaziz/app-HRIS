@@ -12,7 +12,10 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.jabatan.index', [
+            'title' => 'Data Jabatan',
+            'jabatan' => Jabatan::all()
+        ]);
     }
 
     /**
@@ -28,7 +31,12 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $request->validate([
+            'n_jabatan' => 'required'
+        ]);
+
+        Jabatan::create($validator);
+        return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Tambahkan');
     }
 
     /**
@@ -50,16 +58,31 @@ class JabatanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Jabatan $jabatan)
+    public function update(Request $request,  $id)
     {
-        //
+        $validator = $request->validate([
+            'n_jabatan' => 'required'
+        ]);
+
+
+        try {
+            Jabatan::where('id', $id)->update($validator);
+            return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Update');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/data-jabatan')->with('error', 'Gagal MengUpdate jabatan. Silakan coba lagi.');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jabatan $jabatan)
+    public function destroy($id)
     {
-        //
+        try {
+            Jabatan::destroy($id);
+            return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Hapus');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/data-jabatan')->with('error', 'Gagal menghapus jabatan. Silakan coba lagi.');
+        }
     }
 }

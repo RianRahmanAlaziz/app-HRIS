@@ -8,15 +8,15 @@
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center">
                         <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">Karyawan list</h6>
-                            <p class="text-sm">Lihat informasi tentang semua Karyawan</p>
+                            <h6 class="font-weight-semibold text-lg mb-0">List Karyawan</h6>
+                            <p class="text-sm"></p>
                         </div>
                         <div class="ms-auto d-flex">
                             <button type="button" class="btn btn-sm btn-white me-2">
                                 View all
                             </button>
                             <button type="button"
-                                class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2">
+                                class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2" data-bs-toggle="modal" data-bs-target="#addkaryawan">
                                 <span class="btn-inner--icon">
                                     <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" fill="currentColor" class="d-block me-2">
@@ -47,20 +47,23 @@
                         <table class="table align-items-center mb-0">
                             <thead class="bg-gray-100">
                                 <tr>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Anggota
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7" width="5%">No
+                                    </th>
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Nama
                                     </th>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
-                                        Function</th>
+                                        Jabatan</th>
                                     <th
                                         class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                         Status</th>
                                     <th
                                         class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                        Employed</th>
-                                    <th class="text-secondary opacity-7"></th>
+                                        No Telepon</th>
+                                    <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse ($karyawan as $item)
                                 <tr>
                                     <td>
                                         <div class="d-flex px-2 py-1">
@@ -99,7 +102,11 @@
                                         </a>
                                     </td>
                                 </tr>
-                                
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="text-center text-secondary text-xs font-weight-semibold opacity-7">Data Kosong</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -119,4 +126,8 @@
 
 </div>
 
+
+
+@include('dashboard.karyawan.add')
 @endsection
+
