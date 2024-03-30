@@ -85,15 +85,11 @@
                             <a href="#" class="dropdown-item border-radius-md"><i class="fa-solid fa-user"></i>  Profil</a>
                         </li>
                         <li class="mb-2">
-                            <form action="/logout" method="post">
-                                @csrf
-                                <button class="dropdown-item border-radius-md"  type="submit">
+                                <button class=" dropdown-item border-radius-md" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                    LogOut
+                                    Log Out
                                 </button>
-                            </form>
                         </li>
-   
                     </ul>
                 </li>
             </ul>
@@ -101,3 +97,23 @@
     </div>
 </nav>
 
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Yakin Logout?</h5>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-white" type="button" data-bs-dismiss="modal">Cancel</button>
+            <form action="/logout" method="post">
+                @csrf
+                <button class="btn btn-dark" type="submit">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

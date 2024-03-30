@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('n_depan');
             $table->string('n_belakang');
             $table->string('alamat');
+            $table->string('about')->nullable();
+            $table->string('saldo')->nullable()->default(12);
             $table->string('no_hp');
             $table->timestamps();
         });

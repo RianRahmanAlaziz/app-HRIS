@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Karyawan;
+use App\Models\PengajuanCuti;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class KaryawanController extends Controller
 {
@@ -15,7 +17,7 @@ class KaryawanController extends Controller
     public function index()
     {
         return view('dashboard.karyawan.index', [
-            'title' => 'Data Karyawan',
+            'title' => 'Data Pegawai',
             'karyawan' => Karyawan::all(),
             'jabatans' => Jabatan::all()
         ]);
@@ -34,29 +36,32 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'nama' => $request->n_depan . ' ' . $request->n_belakang,
-            'email' => $request->n_depan . '@gmail.com',
-            'level' => $request->jabatan_id,
-            'password' => bcrypt($request->n_depan),
-            'email_verified_at' => now()
-        ];
-        dd($data);
-        User::create($data);
-
         $validator = $request->validate([
             'n_depan' => 'required',
             'n_belakang' => 'required',
             'jabatan_id' => 'required',
-            'n_hp' => 'required',
+            'no_hp' => 'required',
             'alamat' => 'required',
         ]);
+
+        $data = [
+            'nama' => $request->n_depan . ' ' . $request->n_belakang,
+            'email' => $request->n_depan . '@gmail.com',
+            'password' => bcrypt($request->n_depan),
+            'email_verified_at' => now()
+        ];
+        $jabatan = Jabatan::findOrFail($request->jabatan_id);
+        $data['level'] = $jabatan->n_jabatan;
+
+
+
+        User::create($data);
 
         $a = User::all()->last();
         $validator['user_id'] = $a->id;
 
         Karyawan::create($validator);
-        return redirect('/dashboard/data-karyawan')->with('success', 'Data Karyawan Berhasil di Tambahkan');
+        return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Tambahkan');
     }
 
     /**
@@ -78,22 +83,43 @@ class KaryawanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Karyawan $karyawan)
+    public function update(Request $request,  $id)
     {
-        //
+        $validator = $request->validate([
+            'n_depan' => 'required',
+            'n_belakang' => 'required',
+            'jabatan_id' => 'required',
+            'no_hp' => 'required',
+            'alamat' => 'required',
+        ]);
+
+
+        try {
+            Karyawan::where('id', $id)->update($validator);
+            return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Update');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/data-pegawai')->with('error', 'Gagal MengUpdate Pegawai. Silakan coba lagi.');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Karyawan $karyawan)
+    public function destroy($id)
     {
+        $karyawan = Karyawan::findOrFail($id);
+        $user_id = $karyawan->user->id;
+        $pengajuanCuti = PengajuanCuti::where('user_id', $user_id)->get();
         try {
             Karyawan::destroy($karyawan->id);
-            User::destroy($karyawan->user->id);
-            return redirect('/dashboard/data-karyawan')->with('success', 'Data Karyawan Berhasil di Hapus');
+            User::destroy($user_id);
+            PengajuanCuti::where('user_id', $user_id)->delete();
+            foreach ($pengajuanCuti as $cuti) {
+                File::delete('assets/file/pengajuan-cuti/' . $cuti->surat);
+            }
+            return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Hapus');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-karyawan')->with('error', 'Gagal Menghapus Data Karyawan. Silakan Coba Lagi.');
+            return redirect('/dashboard/data-pegawai')->with('error', 'Gagal Menghapus Data Pegawai. Silakan Coba Lagi.');
         }
     }
 }

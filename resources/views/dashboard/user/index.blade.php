@@ -8,19 +8,19 @@
                 <div class="pb-0 card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h5 class="">User Management</h5>
+                            <h5 class="">User Management </h5>
                             <p class="mb-0 text-sm">
                             </p>
                         </div>
                         <div class="col-6 text-end">
-                            <a href="#" class="btn btn-dark btn-primary">
+                            <button type="button" class="btn btn-dark btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
                                 <i class="fas fa-user-plus me-2"></i> Add User
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table text-secondary text-center">
+                    <table class="table table-hover text-secondary text-center">
                         <thead>
                             <tr>
                                 <th width="5%"
@@ -37,7 +37,7 @@
                                     Email</th>
                                 <th
                                     class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                    Level</th>
+                                    Role</th>
 
                                 <th
                                     class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
@@ -58,8 +58,9 @@
                                 <td class="align-middle bg-transparent border-bottom">{{ $item->email }}</td>
                                 <td class="text-center align-middle bg-transparent border-bottom">{{ $item->level }}</td>
                                 <td class="text-center align-middle bg-transparent border-bottom">
-                                    <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fas fa-trash" aria-hidden="true"></i></a>
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#edituser-{{ $item->id }}"><i class="fa-solid fa-pencil"></i></button>
+
+                                    <button  class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-hapus-{{ $item->id }}"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                             @empty
@@ -74,7 +75,31 @@
             </div>
         </div>
     </div>
-
 </div>
 
+@foreach ($user as $item)
+<div class="modal fade" id="modal-hapus-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+
+        <div class="modal-body">
+        Anda Yakin Untuk MengHapus?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+          <form action="/dashboard/data-user-management/{{ $item->id }}" method="POST">
+            @method('DELETE')
+            @csrf
+            <button class="btn btn-dark" type="submit">
+                Hapus
+            </button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+@endforeach
+
+@include('dashboard.user.add')
+@include('dashboard.user.edit')
 @endsection

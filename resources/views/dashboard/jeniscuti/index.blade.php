@@ -8,7 +8,7 @@
                 <div class="card-header border-bottom pb-0">
                     <div class="d-sm-flex align-items-center">
                         <div>
-                            <h6 class="font-weight-semibold text-lg mb-0">List Jabatan</h6>
+                            <h6 class="font-weight-semibold text-lg mb-0">List Cuti</h6>
                             <p class="text-sm"></p>
                         </div>
                         <div class="ms-auto d-flex">
@@ -22,7 +22,7 @@
                                             d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
                                     </svg>
                                 </span>
-                                <span class="btn-inner--text">Add Jabatan</span>
+                                <span class="btn-inner--text">Add Jenis Cuti</span>
                             </button>
                         </div>
                     </div>
@@ -35,20 +35,20 @@
                                 <tr>
                                     <th class="text-secondary text-xs font-weight-semibold opacity-7" width="5%">No
                                     </th>
-                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Nama Jabatan
+                                    <th class="text-secondary text-xs font-weight-semibold opacity-7">Jenis Cuti
                                     </th>
                                     
                                     <th class="text-secondary text-center text-xs font-weight-semibold opacity-7">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($jabatan as $item)
+                                @forelse ($jeniscuti as $item)
                                 <tr>
                                     <td class="text-center align-middle text-secondary text-sm font-weight-normal">{{ $loop->iteration }}</td>
-                                    <td class="align-middle text-secondary text-sm font-weight-normal">{{ $item->n_jabatan }}</td>
+                                    <td class="align-middle text-secondary text-sm font-weight-normal ">{{ $item->n_cuti }}</td>
                                 
                                     <td class="text-center align-middle bg-transparent border-bottom">
-                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editjabatan-{{ $item->id }}"><i class="fa-solid fa-pencil"></i></button>
+                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editjeniscuti-{{ $item->id }}"><i class="fa-solid fa-pencil"></i></button>
 
                                         <button  class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-hapus-{{ $item->id }}"><i class="fa-solid fa-trash"></i></button>
                                     </td>
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-@foreach ($jabatan as $item)
+@foreach ($jeniscuti as $item)
 <div class="modal fade" id="modal-hapus-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
       <div class="modal-content">
@@ -78,7 +78,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-          <form action="/dashboard/data-jabatan/{{ $item->id }}" method="POST">
+          <form action="/dashboard/data-jenis-cuti/{{ $item->id }}" method="POST">
             @method('DELETE')
             @csrf
             <button class="btn btn-dark" type="submit">
@@ -91,6 +91,6 @@
   </div>
 @endforeach
 
-@include('dashboard.jabatan.add')
-@include('dashboard.jabatan.edit')
+@include('dashboard.jeniscuti.add')
+@include('dashboard.jeniscuti.edit')
 @endsection
