@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\JenisCuti;
 use App\Models\Karyawan;
 use App\Models\PengajuanCuti;
+use App\Models\User;
+use App\Notifications\PengajuanCuti as NotificationsPengajuanCuti;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PengajuanCutiController extends Controller
 {
@@ -71,7 +74,9 @@ class PengajuanCutiController extends Controller
         $validator['user_id'] = auth()->user()->id;
 
 
-        PengajuanCuti::create($validator);
+        $pengajuancuti = PengajuanCuti::create($validator);
+        $admin = User::where('level', 'HRD')->first();
+        Notification::send($admin, new NotificationsPengajuanCuti($pengajuancuti));
         return redirect('/dashboard/riwayat-pengajuan-cuti')->with('success', 'Pengajuan Cuti Berhasil di Tambahkan');
     }
 
