@@ -82,12 +82,11 @@
                                 </a>
                             </li>
                         @empty
-                            <li class="mb-2">
+                            <li>
                                 <a class="dropdown-item border-radius-md" href="javascript:;">
-                                    <div class="d-flex py-1">
-
+                                    <div class="d-flex">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="text-sm font-weight-normal mb-1">
+                                            <h6 class="text-sm font-weight-normal">
                                                 Tidak Ada Notification
                                             </h6>
                                         </div>

@@ -1,19 +1,19 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start " id="sidenav-main" data-color="white">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start " id="sidenav-main"
+    data-color="white">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand d-flex align-items-center m-0"
-            href="/dashboard" >
+        <a class="navbar-brand d-flex align-items-center m-0" href="/dashboard">
             <span class="font-weight-bold text-lg">Dashboard</span>
         </a>
     </div>
     <div class="collapse navbar-collapse px-4  w-auto accordion" id="sidenav-collapse-main">
-        <ul class="navbar-nav accordion" id="accordionSidebar" >
-            <li class="nav-item" >
-                <a class="nav-link  {{ Request::is('dashboard') ? 'active' : '' }}"
-                    href="/dashboard" >
+        <ul class="navbar-nav accordion" id="accordionSidebar">
+            {{-- dashboard --}}
+            <li class="nav-item">
+                <a class="nav-link  {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
                     <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center" >
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>dashboard</title>
@@ -33,13 +33,14 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1" >Dashboard</span>
+                    <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            {{-- data master --}}
             <li class="nav-item">
-                <a class="nav-link collapsed {{ Request::is('dashboard/data-*') ? 'active' : '' }}" href="#collapseTwo" data-bs-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="false" aria-controls="collapseTwo">
-                    <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <div class="nav-link">
+                    <div
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>rtl</title>
@@ -59,22 +60,38 @@
                         </svg>
                     </div>
                     <span class="nav-link-text ms-1">Data Master</span>
-                </a>
-                <div id="collapseTwo" class="collapse bg-white py-2 collapse-inner rounded" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <a class=" dropdown-item  border-radius-md px-4 mt-2 mb-2" href="/dashboard/data-user-management">Data User</a>
-                    <hr class="my-0">
-                    <a class=" px-4 mt-2 mb-2  dropdown-item border-radius-md" href="/dashboard/data-pegawai">Data Pegawai</a>
-                    <hr class="my-0">
-                    <a class=" px-4 mt-2 mb-2  dropdown-item border-radius-md" href="/dashboard/data-jabatan">Data Jabatan</a>
-                    <hr class="my-0">
-                    <a class=" px-4 mt-2 mb-2  dropdown-item border-radius-md" href="/dashboard/data-jenis-cuti">Data Jenis Cuti</a>
-                  </div>
+                </div>
             </li>
-            <li class="nav-item" >
+            <li class="nav-item border-start my-0 pt-2">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-user-management') ? 'active' : '' }}"
+                    href="/dashboard/data-user-management">
+                    <span class="nav-link-text ms-1">Data User</span>
+                </a>
+            </li>
+            <li class="nav-item border-start my-0 pt-2">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-pegawai') ? 'active' : '' }}"
+                    href="/dashboard/data-pegawai">
+                    <span class="nav-link-text ms-1">Data Pegawai</span>
+                </a>
+            </li>
+            <li class="nav-item border-start my-0 pt-2">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-jabatan') ? 'active' : '' }}"
+                    href="/dashboard/data-jabatan">
+                    <span class="nav-link-text ms-1">Data Jabatan</span>
+                </a>
+            </li>
+            <li class="nav-item border-start my-0 pt-2">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-jenis-cuti') ? 'active' : '' }}"
+                    href="/dashboard/data-jenis-cuti">
+                    <span class="nav-link-text ms-1">Data Jenis Cuti</span>
+                </a>
+            </li>
+            {{-- pengajuan cuti --}}
+            <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/pengajuan-cuti') ? 'active' : '' }}"
-                    href="/dashboard/pengajuan-cuti" >
+                    href="/dashboard/pengajuan-cuti">
                     <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center" >
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>pengajuan cuti</title>
@@ -97,14 +114,15 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1" >Pengajuan Cuti</span>
+                    <span class="nav-link-text ms-1">Pengajuan Cuti</span>
                 </a>
             </li>
-            <li class="nav-item" >
+            {{-- Listpengajuan cuti --}}
+            <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/list-pengajuan-cuti') ? 'active' : '' }}"
-                    href="/dashboard/list-pengajuan-cuti" >
+                    href="/dashboard/list-pengajuan-cuti">
                     <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center" >
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>List pengajuan cuti</title>
@@ -127,14 +145,15 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1" >List Pengajuan Cuti</span>
+                    <span class="nav-link-text ms-1">List Pengajuan Cuti</span>
                 </a>
             </li>
-            <li class="nav-item" >
+            {{-- riwayat pengajuan cuti --}}
+            <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/riwayat-pengajuan-cuti') ? 'active' : '' }}"
-                    href="/dashboard/riwayat-pengajuan-cuti" >
+                    href="/dashboard/riwayat-pengajuan-cuti">
                     <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center" >
+                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>riwayat pengajuan cuti</title>
@@ -157,11 +176,9 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1" >Riwayat Cuti</span>
+                    <span class="nav-link-text ms-1">Riwayat Cuti</span>
                 </a>
             </li>
-
-
         </ul>
     </div>
 

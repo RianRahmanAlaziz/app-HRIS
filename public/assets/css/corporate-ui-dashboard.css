@@ -22406,7 +22406,7 @@ hr.horizontal.gray-light {
 
 .navbar .sidenav-toggler-inner .sidenav-toggler-line {
   transition: all 0.15s ease;
-  background: #64748b;
+  background: #fff;
   border-radius: 0.125rem;
   position: relative;
   display: block;
@@ -22600,11 +22600,11 @@ hr.horizontal.gray-light {
   padding: 0;
   box-shadow: none;
 }
-
+/* scrol sidebar */
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
   display: block;
   overflow: auto;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 100px);
 }
 
 .navbar-vertical.navbar-expand-xs>[class*="container"] {
