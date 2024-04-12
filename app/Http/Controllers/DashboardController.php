@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
 use App\Models\PengajuanCuti;
+use App\Models\User;
+use App\Notifications\StatusPengajuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class DashboardController extends Controller
 {
@@ -30,6 +33,7 @@ class DashboardController extends Controller
 
     function riwayatpengajuan()
     {
+        Auth()->user()->unreadNotifications->markAsRead();
         return view('dashboard.pengajuancuti.riwayat', [
             'title' => 'Riwayat Pengajuan Cuti',
             'list' => PengajuanCuti::where('user_id', Auth()->user()->id)->get()
@@ -42,8 +46,12 @@ class DashboardController extends Controller
             'status' => 'required',
             'keterangan' => ''
         ]);
+        $pengajuancuti = PengajuanCuti::findOrFail($id);
+        $pengajuancuti->update($validator);
+        $pengajuancutiUser = $pengajuancuti->user;
 
-        PengajuanCuti::where('id', $id)->update($validator);
+        $karyawan = User::where('level', 'Karyawan')->where('id', $pengajuancutiUser->id)->first();
+        Notification::send($karyawan, new StatusPengajuan($pengajuancuti));
         return redirect('/dashboard/list-pengajuan-cuti')->with('success', 'Pengajuan Cuti ' . $validator['status']);
     }
 }

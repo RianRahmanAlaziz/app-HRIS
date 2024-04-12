@@ -75,7 +75,7 @@ class PengajuanCutiController extends Controller
 
 
         $pengajuancuti = PengajuanCuti::create($validator);
-        $admin = User::where('level', 'HRD')->first();
+        $admin = User::where('level', 'Admin')->first();
         Notification::send($admin, new NotificationsPengajuanCuti($pengajuancuti));
         return redirect('/dashboard/riwayat-pengajuan-cuti')->with('success', 'Pengajuan Cuti Berhasil di Tambahkan');
     }

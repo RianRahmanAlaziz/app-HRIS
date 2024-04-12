@@ -58,7 +58,7 @@
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
                         @forelse (auth()->user()->unreadNotifications as $notification)
-                            <li class="mb-2">
+                            {{-- <li class="mb-2">
                                 <a class="dropdown-item border-radius-md" href="/dashboard/list-pengajuan-cuti">
                                     <div class="d-flex py-1">
                                         <div class="my-auto">
@@ -70,6 +70,30 @@
                                                 <span class="font-weight-bold">{{ $notification->data['title'] }}
                                                 </span> Dari
                                                 {{ ucwords($notification->data['nama']) }}
+                                            </h6>
+                                            <h4 class="text-sm font-weight-normal mb-1">
+                                                {{ ucwords($notification->data['messages']) }}</h4>
+                                            <p class="text-xs text-secondary mb-0 d-flex align-items-center ">
+                                                <i class="fa fa-clock opacity-6 me-1"></i>
+                                                {{ $notification->created_at->diffForHumans() }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li> --}}
+
+                            <li class="mb-2">
+                                <a class="dropdown-item border-radius-md" href="/dashboard/list-pengajuan-cuti">
+                                    <div class="d-flex py-1">
+                                        <div class="my-auto">
+                                            <img src="../assets/img/team-2.jpg"
+                                                class="avatar avatar-sm border-radius-sm  me-3 ">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">{{ $notification->data['title'] }}
+                                                </span> Anda Di
+                                                {{ ucwords($notification->data['status']) }}
                                             </h6>
                                             <h4 class="text-sm font-weight-normal mb-1">
                                                 {{ ucwords($notification->data['messages']) }}</h4>

@@ -37,6 +37,7 @@
                 </a>
             </li>
             {{-- data master --}}
+
             <li class="nav-item">
                 <div class="nav-link">
                     <div
@@ -86,6 +87,7 @@
                     <span class="nav-link-text ms-1">Data Jenis Cuti</span>
                 </a>
             </li>
+
             {{-- pengajuan cuti --}}
             <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/pengajuan-cuti') ? 'active' : '' }}"
