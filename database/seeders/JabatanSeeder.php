@@ -13,11 +13,11 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        Jabatan::create([
+        Jabatan::updateOrCreate([
             'n_jabatan' => 'Karyawan'
         ]);
 
-        Jabatan::create([
+        Jabatan::updateOrCreate([
             'n_jabatan' => 'HRD'
         ]);
     }

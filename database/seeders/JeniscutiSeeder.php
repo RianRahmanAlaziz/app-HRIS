@@ -13,11 +13,11 @@ class JeniscutiSeeder extends Seeder
      */
     public function run(): void
     {
-        JenisCuti::create([
+        JenisCuti::updateOrCreate([
             'n_cuti' => 'Sakit'
         ]);
 
-        JenisCuti::create([
+        JenisCuti::updateOrCreate([
             'n_cuti' => 'Mengandung dan Melahirkan'
         ]);
     }
