@@ -50,12 +50,9 @@ class KaryawanController extends Controller
             'password' => bcrypt($request->n_depan),
             'email_verified_at' => now()
         ];
-        $jabatan = Jabatan::findOrFail($request->jabatan_id);
-        $data['level'] = $jabatan->n_jabatan;
 
-
-
-        User::create($data);
+        $user = User::create($data);
+        $user->assignRole('Karyawan');
 
         $a = User::all()->last();
         $validator['user_id'] = $a->id;

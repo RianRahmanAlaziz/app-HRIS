@@ -81,10 +81,13 @@ class UserController extends Controller
         $validator = $request->validate([
             'nama' => 'required|max:255',
             'email' => 'required',
-            'password' => 'nullable'
+            'password' => 'nullable|min:2'
         ]);
         if ($request->filled('password')) {
             $validator['password'] = Hash::make($validator['password']);
+        } else {
+            // Jika password tidak diisi, hapus password dari array validator
+            unset($validator['password']);
         }
 
 

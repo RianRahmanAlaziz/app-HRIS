@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('container')
     <div class="container-fluid py-4 px-5">
-
         <div class="mt-4 row">
             <div class="col-12">
                 <div class="card shadow-lg">

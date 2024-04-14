@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\StatusPengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -49,8 +50,9 @@ class DashboardController extends Controller
         $pengajuancuti = PengajuanCuti::findOrFail($id);
         $pengajuancuti->update($validator);
         $pengajuancutiUser = $pengajuancuti->user;
+        $Role = Role::where('name', 'Karyawan')->first();
 
-        $karyawan = User::where('level', 'Karyawan')->where('id', $pengajuancutiUser->id)->first();
+        $karyawan = $Role->users()->where('id', $pengajuancutiUser->id)->first();
         Notification::send($karyawan, new StatusPengajuan($pengajuancuti));
         return redirect('/dashboard/list-pengajuan-cuti')->with('success', 'Pengajuan Cuti ' . $validator['status']);
     }

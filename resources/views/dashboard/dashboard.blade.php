@@ -15,7 +15,7 @@
 
         <div class="row mt-4">
             <div class="col-xl-3 col-sm-6 mb-xl-0">
-                <div class="card border shadow-xs mb-4">
+                <div class="card border shadow-lg mb-4">
                     <div class="card-body text-start p-3 w-100">
                         <div
                             class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
@@ -67,7 +67,7 @@
                 </div>
             @endhasrole
             <div class="col-xl-3 col-sm-6 mb-xl-0">
-                <div class="card border shadow-xs mb-4">
+                <div class="card border shadow-lg mb-4">
                     <div class="card-body text-start p-3 w-100">
                         <div
                             class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6">
-                <div class="card border shadow-xs mb-4">
+                <div class="card border shadow-lg mb-4">
                     <div class="card-body text-start p-3 w-100">
                         <div
                             class="icon icon-shape icon-sm bg-dark text-white text-center border-radius-sm d-flex align-items-center justify-content-center mb-3">
@@ -128,7 +128,7 @@
 
         <div class="row">
             <div class="col-lg-8 col-md-6">
-                <div class="card shadow-xs border">
+                <div class="card shadow-lg border">
 
                     <div class="card-body">
                         <div class="align-self-center">
