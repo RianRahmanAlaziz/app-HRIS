@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
     {
         return view('dashboard.user.user-profil', [
             'title' => 'User Profil',
-            'user' => User::all()
+            'user' => User::all(),
         ]);
     }
     /**
@@ -25,7 +26,8 @@ class UserController extends Controller
     {
         return view('dashboard.user.index', [
             'title' => 'User Management',
-            'user' => User::all()
+            'user' => User::all(),
+            'roles' => Role::all()
         ]);
     }
 
@@ -45,13 +47,13 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'email' => 'required|unique:users',
-            'level' => 'required',
-            'password' => 'required|min:5|max:255'
+            'password' => 'required|max:255'
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $user->assignRole($request->roles);
         return redirect('/dashboard/data-user-management')->with('success', 'Data User Berhasil di Tambahkan');
     }
 
@@ -79,17 +81,22 @@ class UserController extends Controller
         $validator = $request->validate([
             'nama' => 'required|max:255',
             'email' => 'required',
-            'level' => 'required',
-            'password' => 'sometimes'
+            'password' => 'nullable'
         ]);
         if ($request->filled('password')) {
-
             $validator['password'] = Hash::make($validator['password']);
         }
 
 
         try {
-            User::where('id', $id)->update($validator);
+            $user = User::findOrFail($id);
+            $user->roles()->detach();
+            $user->update($validator);
+
+            if ($request->filled('roles')) {
+                $user->assignRole($request->roles); // Menggunakan syncRoles untuk mengganti peran yang ada
+            }
+
             return redirect('/dashboard/data-user-management')->with('success', 'Data User Berhasil di Update');
         } catch (\Exception $e) {
             return redirect('/dashboard/data-user-management')->with('error', 'Gagal MengUpdate User. Silakan coba lagi.');
