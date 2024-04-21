@@ -69,8 +69,6 @@ class PengajuanCutiController extends Controller
         }
         $validator['status'] = 'Pending';
         $validator['user_id'] = auth()->user()->id;
-
-
         PengajuanCuti::create($validator);
         return redirect('/dashboard/riwayat-pengajuan-cuti')->with('success', 'Pengajuan Cuti Berhasil di Tambahkan');
     }
