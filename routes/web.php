@@ -41,15 +41,15 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::resource('/data-pegawai', KaryawanController::class);
     Route::resource('/data-jabatan', JabatanController::class);
     Route::resource('/data-jenis-cuti', JenisCutiController::class);
-    Route::resource('/pengajuan-cuti', PengajuanCutiController::class);
-
     Route::get('/list-pengajuan-cuti', [DashboardController::class, 'listpengajuan']);
-    Route::get('/riwayat-pengajuan-cuti', [DashboardController::class, 'riwayatpengajuan']);
     Route::post('/list-pengajuan-cuti/{status}', [DashboardController::class, 'ubah_status']);
 
+    Route::middleware(['auth'])->group(function () {
+        Route::resource('/pengajuan-cuti', PengajuanCutiController::class);
+        Route::get('/riwayat-pengajuan-cuti', [DashboardController::class, 'riwayatpengajuan']);
+    });
 
 
     Route::get('/user-profil', [UserController::class, 'userprofil']);
-
     Route::get('/unduh/{nama_file}', [PengajuanCutiController::class, 'unduh'])->name('unduh');
 });
