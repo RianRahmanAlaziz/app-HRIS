@@ -130,7 +130,8 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="a">
                         <li class="mb-2">
-                            <a href="#" class="dropdown-item border-radius-md"><i class="fa-solid fa-user"></i>
+                            <a href="/dashboard/user-profil" class="dropdown-item border-radius-md"><i
+                                    class="fa-solid fa-user"></i>
                                 Profil</a>
                         </li>
                         <li class="mb-2">

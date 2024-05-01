@@ -3,7 +3,7 @@
     <div class="container-fluid py-4 px-5">
         <div class="d-flex justify-content-center">
             <div class="col-10">
-                <div class="card border shadow-xs mb-4">
+                <div class="card border shadow-lg mb-4">
                     <div class="card-header border-bottom pb-0">
                         <div class="d-sm-flex align-items-center">
                             <div>

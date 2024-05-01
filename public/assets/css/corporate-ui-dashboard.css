@@ -21734,7 +21734,7 @@ label,
 }
 
 .form-control:disabled {
-  cursor: no-drop;
+  cursor: default;
 }
 
 .form-control:disabled:hover {

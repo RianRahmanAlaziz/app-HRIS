@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisCutiController;
@@ -35,7 +36,7 @@ Route::controller(Logincontroller::class)->group(function () {
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
+    Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
     // data master
     Route::resource('/data-user-management', UserController::class);
     Route::resource('/data-pegawai', KaryawanController::class);
@@ -49,6 +50,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::get('/riwayat-pengajuan-cuti', [DashboardController::class, 'riwayatpengajuan']);
     });
 
+    Route::controller(AbsensiController::class)->group(function () {
+        Route::get('/absensi', 'index');
+        Route::post('/absensi/{id}', 'store');
+        Route::put('/absensi/{id}', 'update');
+    });
 
     Route::get('/user-profil', [UserController::class, 'userprofil']);
     Route::get('/unduh/{nama_file}', [PengajuanCutiController::class, 'unduh'])->name('unduh');
