@@ -37,13 +37,17 @@ Route::controller(Logincontroller::class)->group(function () {
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
-    // data master
-    Route::resource('/data-user-management', UserController::class);
-    Route::resource('/data-pegawai', KaryawanController::class);
-    Route::resource('/data-jabatan', JabatanController::class);
-    Route::resource('/data-jenis-cuti', JenisCutiController::class);
-    Route::get('/list-pengajuan-cuti', [DashboardController::class, 'listpengajuan']);
-    Route::post('/list-pengajuan-cuti/{status}', [DashboardController::class, 'ubah_status']);
+
+    Route::middleware(['role:Admin'])->group(function () {
+        // data master
+        Route::resource('/data-user-management', UserController::class);
+        Route::resource('/data-pegawai', KaryawanController::class);
+        Route::resource('/data-jabatan', JabatanController::class);
+        Route::resource('/data-jenis-cuti', JenisCutiController::class);
+        Route::get('/list-pengajuan-cuti', [DashboardController::class, 'listpengajuan']);
+        Route::post('/list-pengajuan-cuti/{status}', [DashboardController::class, 'ubah_status']);
+    });
+
 
     Route::middleware(['auth'])->group(function () {
         Route::resource('/pengajuan-cuti', PengajuanCutiController::class);
@@ -52,6 +56,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     Route::controller(AbsensiController::class)->group(function () {
         Route::get('/absensi', 'index');
+        Route::get('/absensi/laporan-absensi', 'laporan');
+        Route::post('/absensi/laporan-absensi', 'laporan');
+        Route::post('/absensi/cetak-laporan', 'cetak');
         Route::post('/absensi/{id}', 'store');
         Route::put('/absensi/{id}', 'update');
     });

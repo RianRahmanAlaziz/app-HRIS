@@ -26,7 +26,7 @@
                                     @method('PUT')
                         @endif
                         @csrf
-                        @if (date('H') >= 24)
+                        @if (date('H') >= 17)
                             <h6 class="font-weight-semibold text-center text-lg mb-0"> Absensi Ditutup</h6>
                         @else
                             @if (!$absensi)
@@ -163,6 +163,7 @@
     </div>
 @endsection
 @section('script')
+    <script src="/assets/js/clock.js"></script>
     <script>
         $(document).ready(function() {
             if ("geolocation" in navigator) {

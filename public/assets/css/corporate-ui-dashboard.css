@@ -21729,6 +21729,12 @@ label,
   border-color: #c0c4cc;
 }
 
+.location-column {
+  max-width: 200px; /* Sesuaikan lebar maksimum sesuai kebutuhan desain Anda */
+  white-space: normal; /* Menetapkan white-space ke normal */
+  word-break: break-word; /* Memastikan pemisahan kata-kata pada karakter yang tidak memiliki spasi */
+}
+
 .form-control:hover:focus {
   border-color: #1b89f7;
 }

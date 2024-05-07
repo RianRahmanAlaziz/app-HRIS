@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Holiday;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 
 class AbsensiController extends Controller
 {
@@ -67,17 +70,6 @@ class AbsensiController extends Controller
         return view('dashboard.absensi.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, $id)
     {
         $absensi = new Absensi([
@@ -96,25 +88,7 @@ class AbsensiController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Absensi $absensi)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Absensi $absensi)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $absensi = Absensi::findOrFail($id);
@@ -125,11 +99,66 @@ class AbsensiController extends Controller
         return redirect('/dashboard/absensi')->with('success', 'Absensi Anda berhasil diakhiri');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Absensi $absensi)
+    public function laporan()
     {
-        //
+        $pegawai = Karyawan::orderBy('n_depan')->get();
+        $absensi = null;
+        $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
+        $filter = false;
+
+        if (request()->filled(['karyawan_id', 'bulan', 'tahun'])) {
+            $this->validate(request(), [
+                'karyawan_id' => 'required',
+                'bulan' => 'required',
+                'tahun' => 'required',
+            ]);
+            $karyawan_id = request()->karyawan_id;
+            $bulan = request()->bulan;
+            $tahun = request()->tahun;
+
+            $absensi = Absensi::where('karyawan_id', $karyawan_id)
+                ->whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->get();
+
+            $filter = true;
+        }
+        $data = [
+            'pegawai' => $pegawai,
+            'title' => 'Laporan Absensi',
+            'namabulan' => $namabulan,
+            'filter' => $filter,
+            'absensi' => $absensi,
+        ];
+
+        return view('dashboard.absensi.list', $data);
     }
+
+    // function cetak(Request $request)
+    // {
+    //     $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
+    //     $pegawai = Karyawan::orderBy('n_depan')->get();
+    //     $request->validate([
+    //         'karyawan_id' => 'required',
+    //     ]);
+    //     $karyawan_id = $request->karyawan_id;
+    //     $bulan = $request->bulan;
+    //     $tahun = $request->tahun;
+
+    //     // $karyawan = Karyawan::where('id', $karyawan_id)->get();
+    //     $absensi = Absensi::where('karyawan_id', $karyawan_id)
+    //         ->whereRaw('MONTH(created_at)="' . $bulan . '"')
+    //         ->whereRaw('YEAR(created_at)="' . $tahun . '"')
+    //         ->get();
+
+    //     $filter = true;
+    //     $data = [
+    //         'pegawai' => $pegawai,
+    //         'absensi' => $absensi,
+    //         'title' => 'Laporan Absensi',
+    //         'namabulan' => $namabulan,
+    //         'filter' => $filter,
+    //     ];
+    //     return view('dashboard.absensi.list', $data);
+    // }
 }
