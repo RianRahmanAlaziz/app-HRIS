@@ -21,12 +21,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login', [
-        'title' => 'Login'
-    ]);
-})->name('login');
 
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', function () {
+        return view('auth.login', [
+            'title' => 'Login'
+        ]);
+    })->name('login');
+});
 
 Route::controller(Logincontroller::class)->group(function () {
     Route::post('/login', 'login');
@@ -36,6 +39,7 @@ Route::controller(Logincontroller::class)->group(function () {
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/karyawan', [DashboardController::class, 'karyawan'])->name('dashboard.karyawan');
     Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
 
     Route::middleware(['role:Admin'])->group(function () {
@@ -56,11 +60,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     Route::controller(AbsensiController::class)->group(function () {
         Route::get('/absensi', 'index');
-        Route::get('/absensi/laporan-absensi', 'laporan');
-        Route::post('/absensi/laporan-absensi', 'laporan');
-        Route::post('/absensi/cetak-laporan', 'cetak');
         Route::post('/absensi/{id}', 'store');
         Route::put('/absensi/{id}', 'update');
+        // Laporan
+        Route::get('/laporan/laporan-absensi', 'laporan');
+        Route::post('/laporan/laporan-absensi', 'laporan');
     });
 
     Route::get('/user-profil', [UserController::class, 'userprofil']);

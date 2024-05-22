@@ -34,16 +34,5 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now()
             ]
         );
-
-        User::updateOrCreate(
-            [
-                'email' => 'bendahara@gmail.com'
-            ],
-            [
-                'nama' => 'Bendahara',
-                'password' => bcrypt('bendahara'),
-                'email_verified_at' => now()
-            ]
-        );
     }
 }

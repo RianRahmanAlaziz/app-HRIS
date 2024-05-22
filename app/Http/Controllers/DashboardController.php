@@ -23,6 +23,11 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function karyawan()
+    {
+        return 'hello';
+    }
+
     function listpengajuan()
     {
         Auth()->user()->unreadNotifications->markAsRead();

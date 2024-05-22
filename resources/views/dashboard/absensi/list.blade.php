@@ -9,7 +9,7 @@
                         <p class="text-sm"></p>
                     </div>
                     <div class="card-body py-3">
-                        <form action="/dashboard/absensi/laporan-absensi" method="post">
+                        <form action="/dashboard/laporan/laporan-absensi" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-6">

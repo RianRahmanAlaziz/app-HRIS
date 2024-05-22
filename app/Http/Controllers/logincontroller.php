@@ -17,10 +17,18 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            $user = Auth::user();
+            if ($user->hasRole('Admin')) {
+                return redirect()->intended('/dashboard');
+            } elseif ($user->hasRole('Karyawan')) {
+                return redirect()->intended('/dashboard/karyawan');
+            }
+
+            // Tambahkan pengalihan default jika tidak ada role yang sesuai
             return redirect()->intended('/dashboard');
         }
 
-        return back()->with('loginError', 'login Gagal!');
+        return back()->with('loginError', 'Login Gagal!');
     }
 
     public function logout(Request $request)

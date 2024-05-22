@@ -33,14 +33,6 @@ class RoleSeeder extends Seeder
             ]
         );
 
-        $roleBendahara = Role::updateOrCreate(
-            [
-                'name' => 'Bendahara'
-            ],
-            [
-                'name' => 'Bendahara'
-            ]
-        );
 
         $roleKaryawan = Role::updateOrCreate(
             [
@@ -67,14 +59,7 @@ class RoleSeeder extends Seeder
                 'name' => 'viewHRD'
             ]
         );
-        $permission2 = Permission::updateOrCreate(
-            [
-                'name' => 'viewBendahara'
-            ],
-            [
-                'name' => 'viewBendahara'
-            ]
-        );
+
         $permission3 = Permission::updateOrCreate(
             [
                 'name' => 'viewKaryawan'
@@ -85,14 +70,11 @@ class RoleSeeder extends Seeder
         );
         $roleAdmin->givePermissionTo($permission);
         $roleHrd->givePermissionTo($permission1);
-        $roleBendahara->givePermissionTo($permission2);
         $roleKaryawan->givePermissionTo($permission3);
 
         $admin = User::find(1);
         $admin->assignRole('Admin');
         $hrd = User::find(2);
         $hrd->assignRole('HRD');
-        $bendahara = User::find(3);
-        $bendahara->assignRole('Bendahara');
     }
 }
