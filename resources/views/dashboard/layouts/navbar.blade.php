@@ -126,7 +126,7 @@
                 <li class="nav-item dropdown ps-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="a" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm" alt="avatar" />
+                        <img src="/assets/img/team-2.jpg" class="avatar avatar-sm" alt="avatar" />
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="a">
                         <li class="mb-2">

@@ -50,8 +50,8 @@
                                         <td class="align-middle bg-transparent border-bottom">{{ $loop->iteration }}</td>
                                         <td class="align-middle bg-transparent border-bottom">
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <img src="../assets/img/team-1.jpg" class="rounded-circle mr-2"
-                                                    alt="user1" style="height: 36px; width: 36px;">
+                                                <img src="/assets/img/team-2.jpg" class="rounded-circle mr-2" alt="user1"
+                                                    style="height: 36px; width: 36px;">
                                             </div>
                                         </td>
                                         <td class="align-middle bg-transparent border-bottom">{{ $item->nama }}</td>

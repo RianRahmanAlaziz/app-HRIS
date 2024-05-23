@@ -58,7 +58,7 @@ class KaryawanController extends Controller
         $validator['user_id'] = $a->id;
 
         Karyawan::create($validator);
-        return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Tambahkan');
+        return redirect('/dashboard/admin/data-pegawai')->with('success', 'Data Pegawai Berhasil di Tambahkan');
     }
 
     /**

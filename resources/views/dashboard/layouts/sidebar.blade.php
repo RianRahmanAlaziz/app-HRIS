@@ -11,7 +11,7 @@
         <ul class="navbar-nav accordion" id="accordionSidebar">
             {{-- dashboard --}}
             <li class="nav-item">
-                <a class="nav-link  {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
+                <a class="nav-link  {{ Request::is('dashboard/admin') ? 'active' : '' }}" href="/dashboard/admin">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
@@ -64,26 +64,26 @@
                     </div>
                 </li>
                 <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-user-management') ? 'active' : '' }}"
-                        href="/dashboard/data-user-management">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-user-management') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-user-management">
                         <span class="nav-link-text ms-1">Data User</span>
                     </a>
                 </li>
                 <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-pegawai') ? 'active' : '' }}"
-                        href="/dashboard/data-pegawai">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-pegawai') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-pegawai">
                         <span class="nav-link-text ms-1">Data Pegawai</span>
                     </a>
                 </li>
                 <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-jabatan') ? 'active' : '' }}"
-                        href="/dashboard/data-jabatan">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jabatan') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-jabatan">
                         <span class="nav-link-text ms-1">Data Jabatan</span>
                     </a>
                 </li>
                 <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/data-jenis-cuti') ? 'active' : '' }}"
-                        href="/dashboard/data-jenis-cuti">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jenis-cuti') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-jenis-cuti">
                         <span class="nav-link-text ms-1">Data Jenis Cuti</span>
                     </a>
                 </li>
@@ -122,8 +122,8 @@
             {{-- Listpengajuan cuti --}}
             @hasanyrole('Admin|HRD')
                 <li class="nav-item">
-                    <a class="nav-link  {{ Request::is('dashboard/list-pengajuan-cuti') ? 'active' : '' }}"
-                        href="/dashboard/list-pengajuan-cuti">
+                    <a class="nav-link  {{ Request::is('dashboard/admin/list-pengajuan-cuti') ? 'active' : '' }}"
+                        href="/dashboard/admin/list-pengajuan-cuti">
                         <div
                             class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                             <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
@@ -152,7 +152,7 @@
                     </a>
                 </li>
             @endhasanyrole
-            {{-- riwayat pengajuan cuti --}}
+            {{-- riwayat pengajuan cuti
             <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/riwayat-pengajuan-cuti') ? 'active' : '' }}"
                     href="/dashboard/riwayat-pengajuan-cuti">
@@ -182,8 +182,8 @@
                     </div>
                     <span class="nav-link-text ms-1">Riwayat Cuti</span>
                 </a>
-            </li>
-            {{-- Absensi --}}
+            </li> --}}
+            {{-- Absensi
             <li class="nav-item">
                 <a class="nav-link  {{ Request::is('dashboard/absensi') ? 'active' : '' }}" href="/dashboard/absensi">
                     <div
@@ -196,7 +196,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Absensi Hari Ini</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- Laporan --}}
             <li class="nav-item">
                 <div class="nav-link">

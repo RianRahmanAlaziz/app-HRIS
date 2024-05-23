@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Pegawai</h5>
             </div>
-            <form action="/dashboard/data-pegawai" method="POST" enctype="multipart/form-data">
+            <form action="/dashboard/admin/data-pegawai" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <main class="form-signin w-100 m-auto">
                         @csrf

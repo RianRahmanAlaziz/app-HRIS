@@ -67,24 +67,28 @@ class AbsensiController extends Controller
                     $data['registered_absensi'] = 'yes';
             }
         }
-        return view('dashboard.absensi.index', $data);
+        return view('ui-karyawan.absensi.index', $data);
     }
 
     public function store(Request $request, $id)
     {
+        $jam = Carbon::now()->format('H:i:s');
+
         $absensi = new Absensi([
             'karyawan_id' => $id,
             'entry_ip' => $request->ip(),
+            'entry_time' => $jam,
             'time' => date('h'),
             'entry_location' => $request->entry_location
         ]);
 
+
         $absensi->save();
         $currentTime = date('H');
         if ($currentTime > 9) {
-            return redirect('/dashboard/absensi')->with('success', 'Absensi Anda berhasil direkam sistem dengan catatan keterlambatan');
+            return redirect('/dashboard')->with('success', 'Absensi Anda berhasil direkam sistem dengan catatan keterlambatan');
         } else {
-            return redirect('/dashboard/absensi')->with('success', 'Absensi Anda berhasil direkam sistem');
+            return redirect('/dashboard')->with('success', 'Absensi Anda berhasil direkam sistem');
         }
     }
 
@@ -96,7 +100,7 @@ class AbsensiController extends Controller
         $absensi->exit_location = $request->exit_location;
         $absensi->registered = 'yes';
         $absensi->save();
-        return redirect('/dashboard/absensi')->with('success', 'Absensi Anda berhasil diakhiri');
+        return redirect('/dashboard')->with('success', 'Absensi Anda berhasil diakhiri');
     }
 
     public function laporan()

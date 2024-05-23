@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignId('karyawan_id')->constrained()->onDelete('cascade');;
             $table->string('entry_ip')->nullable();
             $table->string('entry_location')->nullable();
+            $table->string('entry_time')->nullable();
             $table->string('exit_ip')->nullable();
             $table->string('exit_location')->nullable();
+            $table->string('exit_time')->nullable();
             $table->string('registered')->nullable();
             $table->string('time')->nullable();
             $table->timestamps();
