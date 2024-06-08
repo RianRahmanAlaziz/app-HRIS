@@ -26,7 +26,7 @@ class UserController extends Controller
     {
         return view('dashboard.user.index', [
             'title' => 'User Management',
-            'user' => User::all(),
+            'user' => User::paginate(5),
             'roles' => Role::all()
         ]);
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
 
         $user = User::create($validatedData);
         $user->assignRole($request->roles);
-        return redirect('/dashboard/data-user-management')->with('success', 'Data User Berhasil di Tambahkan');
+        return redirect('/dashboard/admin/data-user-management')->with('success', 'Data User Berhasil di Tambahkan');
     }
 
     /**
@@ -100,9 +100,9 @@ class UserController extends Controller
                 $user->assignRole($request->roles); // Menggunakan syncRoles untuk mengganti peran yang ada
             }
 
-            return redirect('/dashboard/data-user-management')->with('success', 'Data User Berhasil di Update');
+            return redirect('/dashboard/admin/data-user-management')->with('success', 'Data User Berhasil di Update');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-user-management')->with('error', 'Gagal MengUpdate User. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-user-management')->with('error', 'Gagal MengUpdate User. Silakan coba lagi.');
         }
     }
 
@@ -120,9 +120,9 @@ class UserController extends Controller
             foreach ($pengajuanCuti as $cuti) {
                 File::delete('assets/file/pengajuan-cuti/' . $cuti->surat);
             }
-            return redirect('/dashboard/data-user-management')->with('success', 'Data User Berhasil di Hapus');
+            return redirect('/dashboard/admin/data-user-management')->with('success', 'Data User Berhasil di Hapus');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-user-management')->with('error', 'Gagal menghapus User. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-user-management')->with('error', 'Gagal menghapus User. Silakan coba lagi.');
         }
     }
 }

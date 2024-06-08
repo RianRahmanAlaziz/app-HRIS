@@ -14,11 +14,18 @@ class KaryawanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Karyawan::query();
+        // Menambahkan logika pencarian berdasarkan nama
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('n_lengkap', 'like', "%{$search}%");
+        }
+
         return view('dashboard.karyawan.index', [
             'title' => 'Data Pegawai',
-            'karyawan' => Karyawan::all(),
+            'karyawan' => $query->paginate(1)->appends(['search' => $request->input('search')]),
             'jabatans' => Jabatan::all()
         ]);
     }
@@ -37,17 +44,17 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $validator = $request->validate([
-            'n_depan' => 'required',
-            'n_belakang' => 'required',
+            'n_lengkap' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg,webp',
             'jabatan_id' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
         ]);
 
         $data = [
-            'nama' => $request->n_depan . ' ' . $request->n_belakang,
-            'email' => $request->n_depan . '@gmail.com',
-            'password' => bcrypt($request->n_depan),
+            'nama' => $request->n_lengkap,
+            'email' => $request->email,
+            'password' => bcrypt('112233'),
             'email_verified_at' => now()
         ];
 
@@ -57,6 +64,12 @@ class KaryawanController extends Controller
         $a = User::all()->last();
         $validator['user_id'] = $a->id;
 
+        if ($request->has('gambar')) {
+            $gambar = $request->file('gambar');
+            $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
+            $gambar->move('assets/img/pegawai', $nama_gambar);
+            $validator['gambar'] = $nama_gambar;
+        }
         Karyawan::create($validator);
         return redirect('/dashboard/admin/data-pegawai')->with('success', 'Data Pegawai Berhasil di Tambahkan');
     }
@@ -82,9 +95,9 @@ class KaryawanController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $karyawan = Karyawan::findOrFail($id);
         $validator = $request->validate([
-            'n_depan' => 'required',
-            'n_belakang' => 'required',
+            'n_lengkap' => 'required',
             'jabatan_id' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
@@ -92,10 +105,20 @@ class KaryawanController extends Controller
 
 
         try {
+            if ($request->has('gambar')) {
+                File::delete('assets/img/pegawai/' . $karyawan->gambar);
+
+                $gambar = $request->file('gambar');
+                $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
+                $gambar->move('assets/img/pegawai', $nama_gambar);
+                $validator['gambar'] = $nama_gambar;
+            } else {
+                unset($validator['gambar']);
+            }
             Karyawan::where('id', $id)->update($validator);
-            return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Update');
+            return redirect('/dashboard/admin/data-pegawai')->with('success', 'Data Pegawai Berhasil di Update');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-pegawai')->with('error', 'Gagal MengUpdate Pegawai. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-pegawai')->with('error', 'Gagal MengUpdate Pegawai. Silakan coba lagi.');
         }
     }
 
@@ -108,15 +131,17 @@ class KaryawanController extends Controller
         $user_id = $karyawan->user->id;
         $pengajuanCuti = PengajuanCuti::where('user_id', $user_id)->get();
         try {
+
             Karyawan::destroy($karyawan->id);
             User::destroy($user_id);
             PengajuanCuti::where('user_id', $user_id)->delete();
             foreach ($pengajuanCuti as $cuti) {
                 File::delete('assets/file/pengajuan-cuti/' . $cuti->surat);
             }
-            return redirect('/dashboard/data-pegawai')->with('success', 'Data Pegawai Berhasil di Hapus');
+            File::delete('assets/img/pegawai/' . $karyawan->gambar);
+            return redirect('/dashboard/admin/data-pegawai')->with('success', 'Data Pegawai Berhasil di Hapus');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-pegawai')->with('error', 'Gagal Menghapus Data Pegawai. Silakan Coba Lagi.');
+            return redirect('/dashboard/admin/data-pegawai')->with('error', 'Gagal Menghapus Data Pegawai. Silakan Coba Lagi.');
         }
     }
 }

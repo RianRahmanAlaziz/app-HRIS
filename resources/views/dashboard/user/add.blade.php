@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
             </div>
-            <form action="/dashboard/data-user-management" method="POST" enctype="multipart/form-data">
+            <form action="/dashboard/admin/data-user-management" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <main class="form-signin w-100 m-auto">
                         @csrf

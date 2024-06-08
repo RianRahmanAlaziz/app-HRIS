@@ -3,10 +3,11 @@
     <div class="section" id="user-section">
         <div id="user-detail">
             <div class="avatar">
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                <img src="assets/img/pegawai/{{ auth()->user()->karyawan->gambar }}" alt="avatar" class="imaged w64"
+                    style="height:70px">
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ auth()->user()->karyawan->n_depan }}</h2>
+                <h2 id="user-name">{{ auth()->user()->karyawan->n_lengkap }}</h2>
                 <span id="user-role">{{ auth()->user()->karyawan->jabatan->n_jabatan }}</span>
             </div>
         </div>
@@ -48,12 +49,12 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="orange" style="font-size: 40px;">
-                                <ion-icon name="location"></ion-icon>
+                            <a href="" class="success" style="font-size: 40px;">
+                                <ion-icon name="mail-unread-outline"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            Lokasi
+                            Pesan
                         </div>
                     </div>
                 </div>
@@ -96,6 +97,56 @@
             </div>
         </div>
 
+        <div id="rekapabsensi">
+            <h3>Rekap Absensi Bulan {{ $namabulan[$bulanIni] }} Tahun {{ $tahunIni }}</h3>
+            <div class="row">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body text-center" style="padding : 12px 12px !important">
+                            <span class="badge bg-danger"
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekapabsensi->jmlhadir }}</span>
+                            <ion-icon name="accessibility-outline" style="font-size: 1.6rem"></ion-icon>
+                            <br>
+                            <span style="font-size: 0.8rem; font-weight:500">Hadir</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body text-center" style="padding : 12px 12px !important">
+                            <span class="badge bg-danger"
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlizin }}</span>
+                            <ion-icon name="document-outline" style="font-size: 1.6rem" class="text-warning"></ion-icon>
+                            <br>
+                            <span style="font-size: 0.8rem; font-weight:500">Izin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body text-center" style="padding : 12px 12px !important">
+                            <span class="badge bg-danger"
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlsakit }}</span>
+                            <ion-icon name="medkit-outline" style="font-size: 1.6rem" class="text-warning"></ion-icon>
+                            <br>
+                            <span style="font-size: 0.8rem; font-weight:500">Sakit</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body text-center" style="padding : 12px 12px !important">
+                            <span class="badge bg-danger"
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekapabsensi->jmlterlambat }}</span>
+                            <ion-icon name="time-outline" style="font-size: 1.6rem" class="text-danger"></ion-icon>
+                            <br>
+                            <span style="font-size: 0.8rem; font-weight:500">Telat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="presencetab mt-2">
             <div class="tab-pane fade show active" id="pilled" role="tabpanel">
                 <ul class="nav nav-tabs style1" role="tablist">
@@ -124,7 +175,7 @@
                                         <div>{{ $item->created_at->format('d-m-Y') }}</div>
                                         <span class="badge badge-success">{{ $item->entry_time }}</span>
                                         <span
-                                            class="badge badge-danger">{{ $absensihariini != null && $item->exit_time != null ? $item->exit_time : 'Belum ABsen' }}</span>
+                                            class="badge badge-danger">{{ $absensihariini != null && $item->exit_time != null ? $item->exit_time : 'Belum Absen' }}</span>
                                     </div>
                                 </div>
                             </li>
@@ -136,7 +187,6 @@
                                     </div>
                                     <div class="in">
                                         <div>Belum Ada Absensi</div>
-                                        <span class="badge badge-danger">10</span>
                                     </div>
                                 </div>
                             </li>

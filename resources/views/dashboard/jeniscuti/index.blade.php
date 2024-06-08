@@ -88,7 +88,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                        <form action="/dashboard/data-jenis-cuti/{{ $item->id }}" method="POST">
+                        <form action="/dashboard/admin/data-jenis-cuti/{{ $item->id }}" method="POST">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-dark" type="submit">

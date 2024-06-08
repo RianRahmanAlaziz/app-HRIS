@@ -36,7 +36,7 @@ class JabatanController extends Controller
         ]);
 
         Jabatan::create($validator);
-        return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Tambahkan');
+        return redirect('/dashboard/admin/data-jabatan')->with('success', 'Data Jabatan Berhasil di Tambahkan');
     }
 
     /**
@@ -67,9 +67,9 @@ class JabatanController extends Controller
 
         try {
             Jabatan::where('id', $id)->update($validator);
-            return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Update');
+            return redirect('/dashboard/admin/data-jabatan')->with('success', 'Data Jabatan Berhasil di Update');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-jabatan')->with('error', 'Gagal MengUpdate jabatan. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-jabatan')->with('error', 'Gagal MengUpdate jabatan. Silakan coba lagi.');
         }
     }
 
@@ -80,9 +80,9 @@ class JabatanController extends Controller
     {
         try {
             Jabatan::destroy($id);
-            return redirect('/dashboard/data-jabatan')->with('success', 'Data Jabatan Berhasil di Hapus');
+            return redirect('/dashboard/admin/data-jabatan')->with('success', 'Data Jabatan Berhasil di Hapus');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-jabatan')->with('error', 'Gagal menghapus jabatan. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-jabatan')->with('error', 'Gagal menghapus jabatan. Silakan coba lagi.');
         }
     }
 }

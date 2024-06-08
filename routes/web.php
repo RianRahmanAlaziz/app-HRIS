@@ -39,12 +39,11 @@ Route::controller(Logincontroller::class)->group(function () {
 
 
 
-Route::get('/absensi', [AbsensiController::class, 'index']);
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
-
+    Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
     // Admin
-    Route::middleware(['role:Admin'])->prefix('admin')->group(function () {
+    Route::middleware(['role:Admin|HRD'])->prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         // data master
         Route::resource('/data-user-management', UserController::class);
@@ -53,12 +52,24 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::resource('/data-jenis-cuti', JenisCutiController::class);
         Route::get('/list-pengajuan-cuti', [DashboardController::class, 'listpengajuan']);
         Route::post('/list-pengajuan-cuti/{status}', [DashboardController::class, 'ubah_status']);
+        Route::controller(AbsensiController::class)->group(function () {
+            // Laporan
+            Route::get('/laporan/laporan-absensi', 'laporan');
+            Route::post('/laporan/laporan-absensi', 'laporan');
+        });
+        Route::get('/user-profil', [UserController::class, 'userprofil']);
     });
 
     // Karyawan
     Route::middleware(['role:Karyawan'])->group(function () {
-        Route::get('/', [UikaryawanController::class, 'index'])->name('dashboard.karyawan');
-        Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
+
+        Route::controller(UikaryawanController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::get('/user-profil', 'userprofil');
+            Route::post('//user-profil/{id}/update', 'edituserprofil');
+            Route::get('/histori-absensi', 'history');
+        });
+
         Route::controller(AbsensiController::class)->group(function () {
             Route::get('/absensi', 'index');
             Route::post('/absensi/{id}', 'store');
@@ -67,13 +78,14 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
             Route::get('/laporan/laporan-absensi', 'laporan');
             Route::post('/laporan/laporan-absensi', 'laporan');
         });
+
+        Route::resource('/pengajuan-cuti', PengajuanCutiController::class);
     });
 
     Route::middleware(['auth'])->group(function () {
-        Route::resource('/pengajuan-cuti', PengajuanCutiController::class);
+
         Route::get('/riwayat-pengajuan-cuti', [DashboardController::class, 'riwayatpengajuan']);
     });
 
-    Route::get('/user-profil', [UserController::class, 'userprofil']);
     Route::get('/unduh/{nama_file}', [PengajuanCutiController::class, 'unduh'])->name('unduh');
 });

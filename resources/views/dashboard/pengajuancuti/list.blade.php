@@ -67,7 +67,7 @@
                                             <td class="text-center align-middle bg-transparent border-bottom">
                                                 <button type="submit" class="btn btn-outline-danger" data-bs-toggle="modal"
                                                     data-bs-target="#addjabatan">Reject</button>
-                                                <form action="/dashboard/list-pengajuan-cuti/{{ $item->id }}"
+                                                <form action="/dashboard/admin/list-pengajuan-cuti/{{ $item->id }}"
                                                     method="post" class="d-inline">
                                                     @csrf
                                                     <input type="text" name="status" id="status" hidden
@@ -98,7 +98,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <form action="/dashboard/list-pengajuan-cuti/{{ $item->id }}" method="POST">
+                        <form action="/dashboard/admin/list-pengajuan-cuti/{{ $item->id }}" method="POST">
                             <div class="modal-body">
                                 <main class="form-signin w-100 m-auto">
                                     @csrf

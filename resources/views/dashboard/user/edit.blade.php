@@ -7,7 +7,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Update Jenis Cuti</h5>
                 </div>
-                <form action="/dashboard/data-user-management/{{ $item->id }}" method="POST"
+                <form action="/dashboard/admin/data-user-management/{{ $item->id }}" method="POST"
                     enctype="multipart/form-data">
                     <div class="modal-body">
                         <main class="form-signin w-100 m-auto">

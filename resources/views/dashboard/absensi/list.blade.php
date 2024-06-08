@@ -47,7 +47,7 @@
                                     @foreach ($pegawai as $item)
                                         <option value="{{ $item->id }}"
                                             {{ old('karyawan_id') == $item->id || request()->input('karyawan_id') == $item->id ? 'selected' : '' }}>
-                                            {{ $item->n_depan }}
+                                            {{ $item->n_lengkap }}
                                         </option>
                                     @endforeach
                                 </select>

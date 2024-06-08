@@ -224,8 +224,8 @@
                 </div>
             </li>
             <li class="nav-item border-start my-0 pt-2">
-                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/laporan/laporan-absensi') ? 'active' : '' }}"
-                    href="/dashboard/laporan/laporan-absensi">
+                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/laporan/laporan-absensi') ? 'active' : '' }}"
+                    href="/dashboard/admin/laporan/laporan-absensi">
                     <span class="nav-link-text ms-1">Laporan Absensi</span>
                 </a>
             </li>

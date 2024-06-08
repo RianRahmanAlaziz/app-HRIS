@@ -18,6 +18,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/icon/192x192.png">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="manifest" href="__manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body style="background-color:#e9ecef;">
@@ -64,55 +67,18 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <!-- Base Js File -->
     <script src="/assets/js/base.js"></script>
-
-    <script>
-        am4core.ready(function() {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
-
-            var chart = am4core.create("chartdiv", am4charts.PieChart3D);
-            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-            chart.legend = new am4charts.Legend();
-
-            chart.data = [{
-                    country: "Hadir",
-                    litres: 501.9
-                },
-                {
-                    country: "Sakit",
-                    litres: 301.9
-                },
-                {
-                    country: "Izin",
-                    litres: 201.1
-                },
-                {
-                    country: "Terlambat",
-                    litres: 165.8
-                },
-            ];
-
-
-
-            var series = chart.series.push(new am4charts.PieSeries3D());
-            series.dataFields.value = "litres";
-            series.dataFields.category = "country";
-            series.alignLabels = false;
-            series.labels.template.text = "{value.percent.formatNumber('#.0')}%";
-            series.labels.template.radius = am4core.percent(-40);
-            series.labels.template.fill = am4core.color("white");
-            series.colors.list = [
-                am4core.color("#1171ba"),
-                am4core.color("#fca903"),
-                am4core.color("#37db63"),
-                am4core.color("#ba113b"),
-            ];
-        }); // end am4core.ready()
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('script')
+    <script>
+        @if (session()->has('success'))
+            toastr.success("{{ session('success') }}")
+        @endif
+        @if (session()->has('error'))
+            toastr.error("{{ session('error') }}")
+        @endif
+    </script>
 </body>
 
 </html>

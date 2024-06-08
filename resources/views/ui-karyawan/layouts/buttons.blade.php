@@ -5,10 +5,11 @@
             <strong>Home</strong>
         </div>
     </a>
-    <a href="#" class="item">
+    <a href="/dashboard/histori-absensi" class="item {{ Request::is('dashboard/histori-absensi') ? 'active' : '' }}">
         <div class="col">
-            <ion-icon name="calendar-outline" role="img" class="md hydrated" aria-label="calendar outline"></ion-icon>
-            <strong>Calendar</strong>
+            <ion-icon name="clipboard-outline" role="img" class="md hydrated"
+                aria-label="calendar outline"></ion-icon>
+            <strong>Histori</strong>
         </div>
     </a>
     <a href="/dashboard/absensi" class="item {{ Request::is('dashboard/absensi') ? 'active' : '' }}">
@@ -18,23 +19,17 @@
             </div>
         </div>
     </a>
-    <a href="#" class="item">
+    <a href="/dashboard/pengajuan-cuti" class="item {{ Request::is('dashboard/pengajuan-cuti') ? 'active' : '' }}">
         <div class="col">
-            <ion-icon name="document-text-outline" role="img" class="md hydrated"
+            <ion-icon name="calendar-outline" role="img" class="md hydrated"
                 aria-label="document text outline"></ion-icon>
-            <strong>Docs</strong>
+            <strong>Izin</strong>
         </div>
     </a>
-    <a href="/logout" class="item">
+    <a href="/dashboard/user-profil" class="item">
         <div class="col">
             <ion-icon name="people-outline" role="img" class="md hydrated" aria-label="people outline"></ion-icon>
-            <form action="/logout" method="post">
-                @csrf
-                <button class="btn btn-dark" type="submit">
-                    Logout
-                </button>
-            </form>
-            {{-- <strong>logout</strong> --}}
+            <strong>Profil</strong>
         </div>
     </a>
 </div>

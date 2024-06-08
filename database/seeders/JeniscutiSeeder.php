@@ -18,6 +18,10 @@ class JeniscutiSeeder extends Seeder
         ]);
 
         JenisCuti::updateOrCreate([
+            'n_cuti' => 'Izin'
+        ]);
+
+        JenisCuti::updateOrCreate([
             'n_cuti' => 'Mengandung dan Melahirkan'
         ]);
     }

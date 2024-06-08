@@ -18,9 +18,10 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
-        return view('dashboard.pengajuancuti.index', [
-            'title' => 'Pengajuan Cuti',
-            'jcuti' => JenisCuti::all()
+        return view('ui-karyawan.pengajuan.index', [
+            'title' => 'Data Pengajuan Cuti/Izin',
+            'jcuti' => JenisCuti::all(),
+            'list' => PengajuanCuti::where('user_id', Auth()->user()->id)->get()
         ]);
     }
 
@@ -34,7 +35,10 @@ class PengajuanCutiController extends Controller
      */
     public function create()
     {
-        //
+        return view('ui-karyawan.pengajuan.add', [
+            'title' => 'Pengajuan Cuti/Izin',
+            'jcuti' => JenisCuti::all()
+        ]);
     }
 
     /**
@@ -47,7 +51,7 @@ class PengajuanCutiController extends Controller
         $saldocuti = $karyawan->saldo;
 
         if ($saldocuti <= 0) {
-            return redirect('/dashboard/riwayat-pengajuan-cuti')->with('error', 'Saldo Cuti Tidak Mencukupi');
+            return redirect('/dashboard/pengajuan-cuti')->with('error', 'Saldo Cuti Tidak Mencukupi');
         }
 
         // Kurangi saldo cuti sebelum memperbarui data karyawan
@@ -78,7 +82,7 @@ class PengajuanCutiController extends Controller
         $adminRole = Role::where('name', 'HRD')->first();
         $admins = $adminRole->users()->get();
         Notification::send($admins, new NotificationsPengajuanCuti($pengajuancuti));
-        return redirect('/dashboard/riwayat-pengajuan-cuti')->with('success', 'Pengajuan Cuti Berhasil di Tambahkan');
+        return redirect('/dashboard/pengajuan-cuti')->with('success', 'Pengajuan Cuti Berhasil di Tambahkan');
     }
 
     /**

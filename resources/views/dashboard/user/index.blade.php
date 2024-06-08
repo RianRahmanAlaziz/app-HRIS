@@ -82,7 +82,24 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+                    <div class="border-top py-3 px-3 d-flex align-items-center">
+                        <p class="font-weight-semibold mb-0 text-dark text-sm">
+                            Page {{ $user->currentPage() }} of {{ $user->lastPage() }}
+                        </p>
+                        <div class="ms-auto">
+                            @if ($user->onFirstPage())
+                                <button class="btn btn-sm btn-white mb-0" disabled>Previous</button>
+                            @else
+                                <a href="{{ $user->previousPageUrl() }}" class="btn btn-sm btn-white mb-0">Previous</a>
+                            @endif
 
+                            @if ($user->hasMorePages())
+                                <a href="{{ $user->nextPageUrl() }}" class="btn btn-sm btn-white mb-0">Next</a>
+                            @else
+                                <button class="btn btn-sm btn-white mb-0" disabled>Next</button>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,7 +117,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                        <form action="/dashboard/data-user-management/{{ $item->id }}" method="POST">
+                        <form action="/dashboard/admin/data-user-management/{{ $item->id }}" method="POST">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-dark" type="submit">

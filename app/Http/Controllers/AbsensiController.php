@@ -95,8 +95,11 @@ class AbsensiController extends Controller
 
     public function update(Request $request, $id)
     {
+        $jam = Carbon::now()->format('H:i:s');
+
         $absensi = Absensi::findOrFail($id);
         $absensi->exit_ip = $request->ip();
+        $absensi->exit_time = $jam;
         $absensi->exit_location = $request->exit_location;
         $absensi->registered = 'yes';
         $absensi->save();
@@ -105,7 +108,7 @@ class AbsensiController extends Controller
 
     public function laporan()
     {
-        $pegawai = Karyawan::orderBy('n_depan')->get();
+        $pegawai = Karyawan::orderBy('n_lengkap')->get();
         $absensi = null;
         $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
         $filter = false;

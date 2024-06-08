@@ -12,9 +12,6 @@
                                 <p class="text-sm"></p>
                             </div>
                             <div class="ms-auto d-flex">
-                                <button type="button" class="btn btn-sm btn-white me-2">
-                                    View all
-                                </button>
                                 <button type="button" class="btn btn-sm btn-dark btn-icon d-flex align-items-center me-2"
                                     data-bs-toggle="modal" data-bs-target="#addkaryawan">
                                     <span class="btn-inner--icon">
@@ -30,19 +27,22 @@
                         </div>
                     </div>
                     <div class="card-body px-0 py-0">
-                        <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
-                            <div class="input-group w-sm-25 ms-auto">
-                                <span class="input-group-text text-body">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <input type="text" class="form-control" placeholder="Search">
+                        <form action="{{ url()->current() }}" method="get">
+                            <div class="border-bottom py-3 px-3 d-sm-flex align-items-center">
+                                <div class="input-group w-sm-25 ms-auto">
+                                    <span class="input-group-text text-body">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="none"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    <input type="text" name="search" id="search" class="form-control"
+                                        value="{{ request('search') }}" placeholder="Search">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="table-responsive p-0">
                             <table class="table table-hover align-items-center mb-0">
                                 <thead class="bg-gray-100">
@@ -65,16 +65,17 @@
                                     @forelse ($karyawan as $item)
                                         <tr>
                                             <td class="text-center align-middle text-secondary text-sm font-weight-normal">
-                                                {{ $loop->iteration }}</td>
+                                                {{ ($karyawan->currentPage() - 1) * $karyawan->perPage() + $loop->iteration }}
+                                            </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="../assets/img/team-2.jpg"
+                                                        <img src="/assets/img/pegawai/{{ $item->gambar }}"
                                                             class="avatar avatar-sm rounded-circle me-2" alt="user1">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center ms-1">
                                                         <h6 class="mb-0 text-sm font-weight-semibold">
-                                                            {{ $item->n_depan . ' ' . $item->n_belakang }}</h6>
+                                                            {{ $item->n_lengkap }}</h6>
                                                         <p class="text-sm text-secondary mb-0">{{ $item->user->email }}
                                                         </p>
                                                     </div>
@@ -114,12 +115,25 @@
                             </table>
                         </div>
                         <div class="border-top py-3 px-3 d-flex align-items-center">
-                            <p class="font-weight-semibold mb-0 text-dark text-sm">Page 1 of 10</p>
+                            <p class="font-weight-semibold mb-0 text-dark text-sm">
+                                Page {{ $karyawan->currentPage() }} of {{ $karyawan->lastPage() }}
+                            </p>
                             <div class="ms-auto">
-                                <button class="btn btn-sm btn-white mb-0">Previous</button>
-                                <button class="btn btn-sm btn-white mb-0">Next</button>
+                                @if ($karyawan->onFirstPage())
+                                    <button class="btn btn-sm btn-white mb-0" disabled>Previous</button>
+                                @else
+                                    <a href="{{ $karyawan->previousPageUrl() }}"
+                                        class="btn btn-sm btn-white mb-0">Previous</a>
+                                @endif
+
+                                @if ($karyawan->hasMorePages())
+                                    <a href="{{ $karyawan->nextPageUrl() }}" class="btn btn-sm btn-white mb-0">Next</a>
+                                @else
+                                    <button class="btn btn-sm btn-white mb-0" disabled>Next</button>
+                                @endif
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -137,7 +151,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
-                        <form action="/dashboard/data-pegawai/{{ $item->id }}" method="POST">
+                        <form action="/dashboard/admin/data-pegawai/{{ $item->id }}" method="POST">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-dark" type="submit">

@@ -36,7 +36,7 @@ class JenisCutiController extends Controller
         ]);
 
         JenisCuti::create($validator);
-        return redirect('/dashboard/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Tambahkan');
+        return redirect('/dashboard/admin/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Tambahkan');
     }
 
     /**
@@ -67,9 +67,9 @@ class JenisCutiController extends Controller
 
         try {
             JenisCuti::where('id', $id)->update($validator);
-            return redirect('/dashboard/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Update');
+            return redirect('/dashboard/admin/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Update');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-jenis-cuti')->with('error', 'Gagal MengUpdate Jenis Cuti. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-jenis-cuti')->with('error', 'Gagal MengUpdate Jenis Cuti. Silakan coba lagi.');
         }
     }
 
@@ -80,9 +80,9 @@ class JenisCutiController extends Controller
     {
         try {
             JenisCuti::destroy($id);
-            return redirect('/dashboard/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Hapus');
+            return redirect('/dashboard/admin/data-jenis-cuti')->with('success', 'Data Jenis Cuti Berhasil di Hapus');
         } catch (\Exception $e) {
-            return redirect('/dashboard/data-jenis-cuti')->with('error', 'Gagal menghapus Jenis Cuti. Silakan coba lagi.');
+            return redirect('/dashboard/admin/data-jenis-cuti')->with('error', 'Gagal menghapus Jenis Cuti. Silakan coba lagi.');
         }
     }
 }

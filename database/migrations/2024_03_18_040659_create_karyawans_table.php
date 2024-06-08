@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('jabatan_id');
-            $table->string('n_depan');
-            $table->string('n_belakang');
+            $table->string('n_lengkap');
+            $table->string('gambar')->nullable();
             $table->string('alamat');
             $table->string('about')->nullable();
             $table->string('saldo')->nullable()->default(12);
