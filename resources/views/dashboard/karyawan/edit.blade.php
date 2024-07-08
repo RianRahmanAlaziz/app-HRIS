@@ -5,7 +5,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Jenis Cuti</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Pegawai</h5>
                 </div>
                 <form action="/dashboard/admin/data-pegawai/{{ $item->id }}" method="POST"
                     enctype="multipart/form-data">

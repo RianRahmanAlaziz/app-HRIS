@@ -13,7 +13,7 @@
     <!-- * App Header -->
 @endsection
 @section('content')
-    <div class="full" style="margin-top: 70px">
+    <div class="full" style="margin-top: 70px; padding-bottom: 100px;">
         <div class="card border shadow-lg">
             <div class="card-header bg-dark border-bottom pb-0">
                 <div class="d-sm-flex align-items-center">

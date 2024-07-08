@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\Holiday;
 use App\Models\Karyawan;
+use App\Models\PengajuanCuti;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\CarbonPeriod;
+
 
 class AbsensiController extends Controller
 {
@@ -109,7 +112,8 @@ class AbsensiController extends Controller
     public function laporan()
     {
         $pegawai = Karyawan::orderBy('n_lengkap')->get();
-        $absensi = null;
+        $absensi = collect();
+        $cuti = collect();
         $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
         $filter = false;
 
@@ -119,13 +123,26 @@ class AbsensiController extends Controller
                 'bulan' => 'required',
                 'tahun' => 'required',
             ]);
+
             $karyawan_id = request()->karyawan_id;
             $bulan = request()->bulan;
             $tahun = request()->tahun;
 
+            $kr = Karyawan::findOrFail($karyawan_id);
+            $user_id =  $kr->user->id;
+
             $absensi = Absensi::where('karyawan_id', $karyawan_id)
                 ->whereMonth('created_at', $bulan)
                 ->whereYear('created_at', $tahun)
+                ->get();
+
+            // Fetch cuti
+            $cuti = PengajuanCuti::where('user_id', $user_id)
+                ->where('status', 'Accept')
+                ->whereMonth('tgl_mulai', '<=', $bulan)
+                ->whereMonth('tgl_selesai', '>=', $bulan)
+                ->whereYear('tgl_mulai', '<=', $tahun)
+                ->whereYear('tgl_selesai', '>=', $tahun)
                 ->get();
 
             $filter = true;
@@ -136,6 +153,7 @@ class AbsensiController extends Controller
             'namabulan' => $namabulan,
             'filter' => $filter,
             'absensi' => $absensi,
+            'cuti' => $cuti,
         ];
 
         return view('dashboard.absensi.list', $data);

@@ -29,7 +29,7 @@
                             <div class="col-12">
                                 <div class="w-100">
                                     <p class="text-sm text-secondary mb-1">Jumlah Pegawai</p>
-                                    <h4 class="mb-2 font-weight-bold">{{ $pegawai }}</h4>
+                                    <h4 class="mb-2 font-weight-bold">{{ $pegawai ?? 0 }}</h4>
 
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                             <div class="col-12">
                                 <div class="w-100">
                                     <p class="text-sm text-secondary mb-1">Pegawai Terlambat</p>
-                                    <h4 class="mb-2 font-weight-bold">{{ $rekap->jmlterlambat }}</h4>
+                                    <h4 class="mb-2 font-weight-bold">{{ $rekap->jmlterlambat ?? 0 }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                             <div class="col-12">
                                 <div class="w-100">
                                     <p class="text-sm text-secondary mb-1">Pegawai Sakit</p>
-                                    <h4 class="mb-2 font-weight-bold">{{ $rekapizin->jmlsakit }}</h4>
+                                    <h4 class="mb-2 font-weight-bold">{{ $rekapizin->jmlsakit ?? 0 }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="col-12">
                                 <div class="w-100">
                                     <p class="text-sm text-secondary mb-1">Pegawai Izin</p>
-                                    <h4 class="mb-2 font-weight-bold">{{ $rekapizin->jmlizin }}</h4>
+                                    <h4 class="mb-2 font-weight-bold">{{ $rekapizin->jmlizin ?? 0 }}</h4>
                                 </div>
                             </div>
                         </div>

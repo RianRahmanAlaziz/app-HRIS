@@ -41,9 +41,18 @@
                                             <td class="text-center text-secondary text-sm font-weight-normal">
                                                 {{ $loop->iteration }}</td>
                                             <td>
-                                                <p class="text-secondary text-sm font-weight-normal">
-                                                    {{ $item->user->karyawan->n_depan . ' ' . $item->user->karyawan->n_belakang }}
-                                                </p>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/assets/img/pegawai/{{ $item->user->karyawan->gambar }}"
+                                                            class="avatar avatar-sm rounded-circle me-2" alt="user1">
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center ms-1">
+                                                        <h6 class="mb-0 text-sm font-weight-semibold">
+                                                            {{ $item->user->karyawan->n_lengkap }}</h6>
+                                                        <p class="text-sm text-secondary mb-0">{{ $item->email }}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <p class="text-secondary text-sm font-weight-normal">
@@ -57,7 +66,7 @@
                                             </td>
                                             <td>
                                                 <p class="text-center text-secondary text-sm font-weight-normal">
-                                                    {{ \Carbon\Carbon::parse($item->tgl_mulai)->format('d-m-Y') }}</p>
+                                                    {{ \Carbon\Carbon::parse($item->tgl_mulai)->format('d-M-Y') }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-center text-secondary text-sm font-weight-normal">

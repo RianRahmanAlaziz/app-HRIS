@@ -19,7 +19,7 @@
                 <div class="list-menu">
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="green" style="font-size: 40px;">
+                            <a href="/dashboard/user-profil" class="green" style="font-size: 40px;">
                                 <ion-icon name="person-sharp"></ion-icon>
                             </a>
                         </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="danger" style="font-size: 40px;">
+                            <a href="/dashboard/pengajuan-cuti" class="danger" style="font-size: 40px;">
                                 <ion-icon name="calendar-number"></ion-icon>
                             </a>
                         </div>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Masuk</h4>
-                                    <span>{{ $absensihariini != null ? $absensihariini->entry_time : 'Belum Absen' }}</span>
+                                    <span>{{ $absensihariini != null ? $absensihariini->entry_time : 'Belum Absen Masuk' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Pulang</h4>
-                                    <span>{{ $absensihariini != null && $absensihariini->exit_time != null ? $absensihariini->exit_time : 'Belum Absen' }}</span>
+                                    <span>{{ $absensihariini != null && $absensihariini->exit_time != null ? $absensihariini->exit_time : 'Belum Absen Keluar' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding : 12px 12px !important">
                             <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlizin }}</span>
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlizin ?? 0 }}</span>
                             <ion-icon name="document-outline" style="font-size: 1.6rem" class="text-warning"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Izin</span>
@@ -126,7 +126,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding : 12px 12px !important">
                             <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlsakit }}</span>
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekap->jmlsakit ?? 0 }}</span>
                             <ion-icon name="medkit-outline" style="font-size: 1.6rem" class="text-warning"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Sakit</span>
@@ -137,7 +137,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding : 12px 12px !important">
                             <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekapabsensi->jmlterlambat }}</span>
+                                style="position:absolute; top:3px; right:5px; font-size:0.6rem; z-index:999">{{ $rekapabsensi->jmlterlambat ?? 0 }}</span>
                             <ion-icon name="time-outline" style="font-size: 1.6rem" class="text-danger"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Telat</span>
@@ -175,7 +175,7 @@
                                         <div>{{ $item->created_at->format('d-m-Y') }}</div>
                                         <span class="badge badge-success">{{ $item->entry_time }}</span>
                                         <span
-                                            class="badge badge-danger">{{ $absensihariini != null && $item->exit_time != null ? $item->exit_time : 'Belum Absen' }}</span>
+                                            class="badge badge-danger">{{ $absensihariini != null && $item->exit_time != null ? $item->exit_time : 'Belum Absen Keluar' }}</span>
                                     </div>
                                 </div>
                             </li>

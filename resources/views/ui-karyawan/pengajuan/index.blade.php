@@ -42,8 +42,7 @@
                                 <ion-icon name="finger-print-outline"></ion-icon>
                             </div>
                             <div class="in">
-                                <div>Belum Ada Absensi</div>
-                                <span class="badge badge-danger">10</span>
+                                <div>Belum Ada Pengajuan</div>
                             </div>
                         </div>
                     </li>

@@ -14,7 +14,7 @@
 @endsection
 @section('content')
     <form action="/dashboard/user-profil/{{ $user->id }}/update" method="POST" enctype="multipart/form-data"
-        style="margin-top: 4rem; padding-bottom: 150px;">
+        style="margin-top: 4rem; padding-bottom: 100px;">
         @csrf
         <div class="col">
             <div class="form-group boxed">

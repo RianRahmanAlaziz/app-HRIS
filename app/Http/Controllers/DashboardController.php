@@ -44,7 +44,7 @@ class DashboardController extends Controller
     {
         Auth()->user()->unreadNotifications->markAsRead();
         return view('dashboard.pengajuancuti.list', [
-            'title' => 'List Pengajuan Cuti',
+            'title' => 'Daftar Pengajuan Cuti',
             'list' => PengajuanCuti::where('status', 'Pending')->get()
         ]);
     }

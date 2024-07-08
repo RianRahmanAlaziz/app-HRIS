@@ -9,7 +9,7 @@
                         <p class="text-sm"></p>
                     </div>
                     <div class="card-body py-3">
-                        <form action="/dashboard/laporan/laporan-absensi" method="post">
+                        <form action="/dashboard/admin/laporan/laporan-absensi" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-6">
@@ -17,7 +17,8 @@
                                         <label for="bulan">Bulan</label>
                                         <select name="bulan" id="bulan" class="form-select">
                                             @for ($i = 1; $i <= 12; $i++)
-                                                <option value="{{ $i }}" {{ date('m') == $i ? 'selected' : '' }}>
+                                                <option value="{{ $i }}"
+                                                    {{ (old('bulan') ?? request('bulan', date('m'))) == $i ? 'selected' : '' }}>
                                                     {{ $namabulan[$i] }}</option>
                                             @endfor
                                         </select>
@@ -83,15 +84,14 @@
                 </div>
             </div>
         </div>
-        @if ($filter && $absensi)
+        @if ($filter && ($absensi->isNotEmpty() || $cuti->isNotEmpty()))
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card border  shadow-lg mb-4">
                         <div class="card-header text-bg-dark border-bottom pb-0">
                             <div class="d-sm-flex align-items-center">
                                 <div>
-                                    <h6 class="font-weight-semibold text-white text-lg mb-0">List Absensi
-                                    </h6>
+                                    <h6 class="font-weight-semibold text-white text-lg mb-0">List Absensi dan Cuti</h6>
                                     <p class="text-sm"></p>
                                 </div>
                             </div>
@@ -102,11 +102,9 @@
                                     <thead class="bg-gray-100">
                                         <tr>
                                             <th class="text-secondary text-xs font-weight-semibold opacity-7"
-                                                width="5%">No
-                                            </th>
+                                                width="5%">No</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                Tanggal
-                                            </th>
+                                                Tanggal</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                                 Status</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
@@ -116,35 +114,121 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($absensi as $item)
+                                        @php
+                                            $all_dates = [];
+                                            foreach ($absensi as $item) {
+                                                $all_dates[$item->created_at->format('Y-m-d')] = [
+                                                    'status' => 'Hadir',
+                                                    'waktu_absensi' => $item->created_at->format('H:i:s'),
+                                                    'waktu_selesai' => $item->updated_at->format('H:i:s'),
+                                                ];
+                                            }
+                                            foreach ($cuti as $item) {
+                                                $period = \Carbon\CarbonPeriod::create(
+                                                    $item->tgl_mulai,
+                                                    $item->tgl_selesai,
+                                                );
+                                                foreach ($period as $date) {
+                                                    $all_dates[$date->format('Y-m-d')] = [
+                                                        'status' => 'Cuti',
+                                                        'waktu_absensi' => '-',
+                                                        'waktu_selesai' => '-',
+                                                    ];
+                                                }
+                                            }
+                                            for (
+                                                $i = 1;
+                                                $i <=
+                                                \Carbon\Carbon::createFromDate(request('tahun'), request('bulan'))
+                                                    ->daysInMonth;
+                                                $i++
+                                            ) {
+                                                $date = \Carbon\Carbon::create(
+                                                    request('tahun'),
+                                                    request('bulan'),
+                                                    $i,
+                                                )->format('Y-m-d');
+                                                if (!isset($all_dates[$date])) {
+                                                    $all_dates[$date] = [
+                                                        'status' => 'Tidak Hadir',
+                                                        'waktu_absensi' => '-',
+                                                        'waktu_selesai' => '-',
+                                                    ];
+                                                }
+                                            }
+                                        @endphp
+
+                                        @foreach (collect($all_dates)->sortKeys() as $date => $data)
                                             <tr>
                                                 <td
                                                     class="text-center align-middle text-secondary text-sm font-weight-normal">
                                                     {{ $loop->iteration }}</td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-sm font-weight-normal">{{ $item->created_at->format('d-m-Y') }}</span>
+                                                        class="text-secondary text-sm font-weight-normal">{{ \Carbon\Carbon::parse($date)->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="badge badge-sm border border-success text-success bg-success">Hadir</span>
+                                                        class="badge badge-sm border border-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }} text-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }} bg-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }}">{{ $data['status'] }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-sm font-weight-normal">{{ $item->created_at->format('H:i:s') }}</span>
+                                                        class="text-secondary text-sm font-weight-normal">{{ $data['waktu_absensi'] }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-sm font-weight-normal">{{ $item->updated_at->format('H:i:s') }}</span>
+                                                        class="text-secondary text-sm font-weight-normal">{{ $data['waktu_selesai'] }}</span>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="5"
-                                                    class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                    Data Kosong</td>
-                                            </tr>
-                                        @endforelse
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="border-top  text-bg-dark py-3 px-3 d-flex align-items-center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if ($filter && ($absensi->isEmpty() || $cuti->isEmpty()))
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card border  shadow-lg mb-4">
+                        <div class="card-header text-bg-dark border-bottom pb-0">
+                            <div class="d-sm-flex align-items-center">
+                                <div>
+                                    <h6 class="font-weight-semibold text-white text-lg mb-0">
+                                        List Absensi dan Cuti</h6>
+                                    <p class="text-sm"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 py-0">
+                            <div class="table-responsive p-0">
+                                <table class="table table-hover align-items-center mb-0">
+                                    <thead class="bg-gray-100">
+                                        <tr>
+                                            <th class="text-secondary text-xs font-weight-semibold opacity-7"
+                                                width="5%">No</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                                Tanggal</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                                Status</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                                Waktu Absensi</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                                Waktu Selesai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="5"
+                                                class="text-center text-secondary text-xs font-weight-semibold opacity-7">
+                                                Data Kosong</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
