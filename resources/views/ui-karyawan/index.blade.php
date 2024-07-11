@@ -1,6 +1,23 @@
 @extends('ui-karyawan.layouts.app')
 @section('content')
+    <style>
+        .logout {
+            position: absolute;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            right: 8px;
+
+        }
+    </style>
     <div class="section" id="user-section">
+
+        <form action="/logout" method="post" class="logout">
+            @csrf
+            <button type="submit" class="border-0 " style="background-color:transparent">
+                <ion-icon name="exit-outline" style="color: white"></ion-icon>
+            </button>
+        </form>
         <div id="user-detail">
             <div class="avatar">
                 <img src="assets/img/pegawai/{{ auth()->user()->karyawan->gambar }}" alt="avatar" class="imaged w64"
@@ -30,7 +47,8 @@
                     <div class="item-menu text-center">
                         <div class="menu-icon">
                             <a href="/dashboard/pengajuan-cuti" class="danger" style="font-size: 40px;">
-                                <ion-icon name="calendar-number"></ion-icon>
+
+                                <ion-icon name="document-text"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
@@ -40,7 +58,7 @@
                     <div class="item-menu text-center">
                         <div class="menu-icon">
                             <a href="" class="warning" style="font-size: 40px;">
-                                <ion-icon name="document-text"></ion-icon>
+                                <ion-icon name="calendar-number"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
@@ -49,8 +67,14 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="success" style="font-size: 40px;">
-                                <ion-icon name="mail-unread-outline"></ion-icon>
+                            <a href="/dashboard/pesan" class="success" style="font-size: 40px;">
+                                @if (auth()->check())
+                                    @if (auth()->user()->unreadNotifications->count() > 0)
+                                        <ion-icon name="mail-unread-outline"></ion-icon>
+                                    @else
+                                        <ion-icon name="mail-outline"></ion-icon>
+                                    @endif
+                                @endif
                             </a>
                         </div>
                         <div class="menu-name">
@@ -73,7 +97,7 @@
                                 </div>
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Masuk</h4>
-                                    <span>{{ $absensihariini != null ? $absensihariini->entry_time : 'Belum Absen Masuk' }}</span>
+                                    <span>{{ $absensihariini != null ? $absensihariini->entry_time : 'Belum Absen' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +112,7 @@
                                 </div>
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Pulang</h4>
-                                    <span>{{ $absensihariini != null && $absensihariini->exit_time != null ? $absensihariini->exit_time : 'Belum Absen Keluar' }}</span>
+                                    <span>{{ $absensihariini != null && $absensihariini->exit_time != null ? $absensihariini->exit_time : 'Belum Absen' }}</span>
                                 </div>
                             </div>
                         </div>

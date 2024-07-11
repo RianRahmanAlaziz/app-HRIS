@@ -22,7 +22,6 @@ class UikaryawanController extends Controller
         $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
 
         $id = auth()->user()->karyawan->id;
-        $user_id = auth()->user()->id;
         $absensihariini = Absensi::where('karyawan_id', $id)
             ->whereDate('created_at', $hariini)
             ->first();
@@ -36,7 +35,7 @@ class UikaryawanController extends Controller
             ->whereYear('created_at', $tahunIni)
             ->selectRaw('COUNT(*) as jmlhadir, SUM(IF(entry_time > "07:00:00", 1, 0)) as jmlterlambat')
             ->first();
-        $rekap = PengajuanCuti::where('user_id', $user_id)
+        $rekap = PengajuanCuti::where('karyawan_id', $id)
             ->whereMonth('created_at', $bulanIni)
             ->whereYear('created_at', $tahunIni)
             ->selectRaw('SUM(IF(k_cuti = "Sakit", 1, 0)) as jmlsakit')
@@ -66,13 +65,51 @@ class UikaryawanController extends Controller
 
     public function history()
     {
-        $user = Karyawan::where('user_id', Auth()->user()->id)->first();
+        $karyawan = Karyawan::where('user_id', Auth()->user()->id)->first();
+        $absensi = collect();
+        $cuti = collect();
         $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
-        return view('ui-karyawan.absensi.history', [
+
+        if (request()->filled(['bulan', 'tahun'])) {
+            $this->validate(request(), [
+                'bulan' => 'required',
+                'tahun' => 'required',
+            ]);
+            $bulan = request()->bulan;
+            $tahun = request()->tahun;
+
+            $absensi = Absensi::where('karyawan_id', $karyawan->id)
+                ->whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->get();
+
+            // Fetch cuti
+            $cuti = PengajuanCuti::where('karyawan_id', $karyawan->id)
+                ->where('status', 'Accept')
+                ->whereMonth('tgl_mulai', '<=', $bulan)
+                ->whereMonth('tgl_selesai', '>=', $bulan)
+                ->whereYear('tgl_mulai', '<=', $tahun)
+                ->whereYear('tgl_selesai', '>=', $tahun)
+                ->get();
+        }
+        $todayDate = date('Y');
+        $todayMonth = date('n'); // Get current month as number
+        $todayMonthName = $namabulan[$todayMonth];
+        $data = [
             'title' => 'History Absensi',
-            'user' => $user,
-            'namabulan' => $namabulan
-        ]);
+            'karyawan' => $karyawan,
+            'absensi' => $absensi,
+            'cuti' => $cuti,
+            'namabulan' => $namabulan,
+            'todayDate' => $todayDate,
+            'todayMonthName' => $todayMonthName,
+        ];
+
+        if (request()->has('cetak')) {
+
+            return view('ui-karyawan.absensi.cetak', $data);
+        }
+        return view('ui-karyawan.absensi.history', $data);
     }
 
     public function edituserprofil(Request $request)
@@ -132,5 +169,19 @@ class UikaryawanController extends Controller
             return back()->withErrors(['error' => 'Gagal memperbarui profil: ' . $e->getMessage()]);
         }
         return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function pesan()
+    {
+        return view('ui-karyawan.pesan.index', [
+            'title' => 'Pesan',
+
+        ]);
+    }
+
+    public function markAsRead()
+    {
+        Auth()->user()->unreadNotifications->markAsRead();
+        return response()->json(['status' => 'success']);
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengajuan_cutis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('karyawan_id');
             $table->foreignId('jeniscuti_id');
             $table->string('k_cuti');
             $table->string('keterangan')->nullable();

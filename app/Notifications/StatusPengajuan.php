@@ -48,7 +48,7 @@ class StatusPengajuan extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'user_id' => $this->pengajuancuti->user_id,
+            'karyawan_id' => $this->pengajuancuti->karyawan_id,
             'pengajuancuti' => $this->pengajuancuti->id,
             'title' => 'Pengajuan Cuti',
             'messages' => 'Alasan ' . $this->pengajuancuti->keterangan,

@@ -37,154 +37,7 @@
                 </a>
             </li>
             {{-- data master --}}
-            @hasrole('Admin|HRD')
-                <li class="nav-item">
-                    <div class="nav-link">
-                        <div
-                            class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                            <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>rtl</title>
-                                <g id="rtl" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="menu-alt-3" transform="translate(12.000000, 14.000000)" fill="#FFFFFF">
-                                        <path class="color-foreground"
-                                            d="M0,1.71428571 C0,0.76752 0.76752,0 1.71428571,0 L22.2857143,0 C23.2325143,0 24,0.76752 24,1.71428571 C24,2.66105143 23.2325143,3.42857143 22.2857143,3.42857143 L1.71428571,3.42857143 C0.76752,3.42857143 0,2.66105143 0,1.71428571 Z"
-                                            id="Path"></path>
-                                        <path class="color-background"
-                                            d="M0,10.2857143 C0,9.33894857 0.76752,8.57142857 1.71428571,8.57142857 L22.2857143,8.57142857 C23.2325143,8.57142857 24,9.33894857 24,10.2857143 C24,11.2325143 23.2325143,12 22.2857143,12 L1.71428571,12 C0.76752,12 0,11.2325143 0,10.2857143 Z"
-                                            id="Path"></path>
-                                        <path class="color-background"
-                                            d="M10.2857143,18.8571429 C10.2857143,17.9103429 11.0532343,17.1428571 12,17.1428571 L22.2857143,17.1428571 C23.2325143,17.1428571 24,17.9103429 24,18.8571429 C24,19.8039429 23.2325143,20.5714286 22.2857143,20.5714286 L12,20.5714286 C11.0532343,20.5714286 10.2857143,19.8039429 10.2857143,18.8571429 Z"
-                                            id="Path"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">Data Master</span>
-                    </div>
-                </li>
-                <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-user-management') ? 'active' : '' }}"
-                        href="/dashboard/admin/data-user-management">
-                        <span class="nav-link-text ms-1">Data User</span>
-                    </a>
-                </li>
-                <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-pegawai') ? 'active' : '' }}"
-                        href="/dashboard/admin/data-pegawai">
-                        <span class="nav-link-text ms-1">Data Pegawai</span>
-                    </a>
-                </li>
-                <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jabatan') ? 'active' : '' }}"
-                        href="/dashboard/admin/data-jabatan">
-                        <span class="nav-link-text ms-1">Data Jabatan</span>
-                    </a>
-                </li>
-                <li class="nav-item border-start my-0 pt-2">
-                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jenis-cuti') ? 'active' : '' }}"
-                        href="/dashboard/admin/data-jenis-cuti">
-                        <span class="nav-link-text ms-1">Data Jenis Cuti</span>
-                    </a>
-                </li>
-            @endhasrole
-            {{-- pengajuan cuti --}}
-            {{-- <li class="nav-item">
-                <a class="nav-link  {{ Request::is('dashboard/pengajuan-cuti') ? 'active' : '' }}"
-                    href="/dashboard/pengajuan-cuti">
-                    <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                        <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>pengajuan cuti</title>
-                            <g id="table" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g id="view-grid" transform="translate(12.000000, 12.000000)" fill="#FFFFFF"
-                                    fill-rule="nonzero">
-                                    <path class="color-foreground"
-                                        d="M3.42857143,0 C1.53502286,0 0,1.53502286 0,3.42857143 L0,6.85714286 C0,8.75069143 1.53502286,10.2857143 3.42857143,10.2857143 L6.85714286,10.2857143 C8.75069143,10.2857143 10.2857143,8.75069143 10.2857143,6.85714286 L10.2857143,3.42857143 C10.2857143,1.53502286 8.75069143,0 6.85714286,0 L3.42857143,0 Z"
-                                        id="Path"></path>
-                                    <path class="color-background"
-                                        d="M3.42857143,13.7142857 C1.53502286,13.7142857 0,15.2492571 0,17.1428571 L0,20.5714286 C0,22.4650286 1.53502286,24 3.42857143,24 L6.85714286,24 C8.75069143,24 10.2857143,22.4650286 10.2857143,20.5714286 L10.2857143,17.1428571 C10.2857143,15.2492571 8.75069143,13.7142857 6.85714286,13.7142857 L3.42857143,13.7142857 Z"
-                                        id="Path"></path>
-                                    <path class="color-background"
-                                        d="M13.7142857,3.42857143 C13.7142857,1.53502286 15.2492571,0 17.1428571,0 L20.5714286,0 C22.4650286,0 24,1.53502286 24,3.42857143 L24,6.85714286 C24,8.75069143 22.4650286,10.2857143 20.5714286,10.2857143 L17.1428571,10.2857143 C15.2492571,10.2857143 13.7142857,8.75069143 13.7142857,6.85714286 L13.7142857,3.42857143 Z"
-                                        id="Path"></path>
-                                    <path class="color-foreground"
-                                        d="M13.7142857,17.1428571 C13.7142857,15.2492571 15.2492571,13.7142857 17.1428571,13.7142857 L20.5714286,13.7142857 C22.4650286,13.7142857 24,15.2492571 24,17.1428571 L24,20.5714286 C24,22.4650286 22.4650286,24 20.5714286,24 L17.1428571,24 C15.2492571,24 13.7142857,22.4650286 13.7142857,20.5714286 L13.7142857,17.1428571 Z"
-                                        id="Path"></path>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="nav-link-text ms-1">Pengajuan Cuti</span>
-                </a>
-            </li> --}}
-            {{-- Listpengajuan cuti --}}
-            @hasanyrole('HRD')
-                <li class="nav-item">
-                    <a class="nav-link  {{ Request::is('dashboard/admin/list-pengajuan-cuti') ? 'active' : '' }}"
-                        href="/dashboard/admin/list-pengajuan-cuti">
-                        <div
-                            class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 576 512">
-                                <!-- Bagian pertama -->
-                                <path class="color-background" fill="#000000"
-                                    d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V299.6l-94.7 94.7c-8.2 8.2-14 18.5-16.8 29.7l-15 60.1c-2.3 9.4-1.8 19 1.4 27.8H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
-                                <!-- Bagian kedua -->
-                                <path class="color-foreground" fill="#000000"
-                                    d="M549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z" />
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">Daftar Pengajuan Cuti</span>
-                    </a>
-                </li>
-            @endhasanyrole
-            {{-- riwayat pengajuan cuti
-            <li class="nav-item">
-                <a class="nav-link  {{ Request::is('dashboard/riwayat-pengajuan-cuti') ? 'active' : '' }}"
-                    href="/dashboard/riwayat-pengajuan-cuti">
-                    <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                        <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>riwayat pengajuan cuti</title>
-                            <g id="table" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g id="view-grid" transform="translate(12.000000, 12.000000)" fill="#FFFFFF"
-                                    fill-rule="nonzero">
-                                    <path class="color-foreground"
-                                        d="M3.42857143,0 C1.53502286,0 0,1.53502286 0,3.42857143 L0,6.85714286 C0,8.75069143 1.53502286,10.2857143 3.42857143,10.2857143 L6.85714286,10.2857143 C8.75069143,10.2857143 10.2857143,8.75069143 10.2857143,6.85714286 L10.2857143,3.42857143 C10.2857143,1.53502286 8.75069143,0 6.85714286,0 L3.42857143,0 Z"
-                                        id="Path"></path>
-                                    <path class="color-background"
-                                        d="M3.42857143,13.7142857 C1.53502286,13.7142857 0,15.2492571 0,17.1428571 L0,20.5714286 C0,22.4650286 1.53502286,24 3.42857143,24 L6.85714286,24 C8.75069143,24 10.2857143,22.4650286 10.2857143,20.5714286 L10.2857143,17.1428571 C10.2857143,15.2492571 8.75069143,13.7142857 6.85714286,13.7142857 L3.42857143,13.7142857 Z"
-                                        id="Path"></path>
-                                    <path class="color-background"
-                                        d="M13.7142857,3.42857143 C13.7142857,1.53502286 15.2492571,0 17.1428571,0 L20.5714286,0 C22.4650286,0 24,1.53502286 24,3.42857143 L24,6.85714286 C24,8.75069143 22.4650286,10.2857143 20.5714286,10.2857143 L17.1428571,10.2857143 C15.2492571,10.2857143 13.7142857,8.75069143 13.7142857,6.85714286 L13.7142857,3.42857143 Z"
-                                        id="Path"></path>
-                                    <path class="color-foreground"
-                                        d="M13.7142857,17.1428571 C13.7142857,15.2492571 15.2492571,13.7142857 17.1428571,13.7142857 L20.5714286,13.7142857 C22.4650286,13.7142857 24,15.2492571 24,17.1428571 L24,20.5714286 C24,22.4650286 22.4650286,24 20.5714286,24 L17.1428571,24 C15.2492571,24 13.7142857,22.4650286 13.7142857,20.5714286 L13.7142857,17.1428571 Z"
-                                        id="Path"></path>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="nav-link-text ms-1">Riwayat Cuti</span>
-                </a>
-            </li> --}}
-            {{-- Absensi
-            <li class="nav-item">
-                <a class="nav-link  {{ Request::is('dashboard/absensi') ? 'active' : '' }}" href="/dashboard/absensi">
-                    <div
-                        class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                            viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path fill="#ffffff"
-                                d=" M32 32C14.3 32 0 46.3 0 64v96c0 17.7 14.3 32 32 32s32-14.3 32-32V96h64c17.7 0 32-14.3 32-32s-14.3-32-32-32H32z M64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7 14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H64V352z M320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32h64v64c0 17.7 14.3 32 32 32s32-14.3 32-32V64c0-17.7-14.3-32-32-32H320z M448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32V352z" />
-                        </svg>
-                    </div>
-                    <span class="nav-link-text ms-1">Absensi Hari Ini</span>
-                </a>
-            </li> --}}
-            {{-- Laporan --}}
+
             <li class="nav-item">
                 <div class="nav-link">
                     <div
@@ -207,15 +60,98 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1">Laporan</span>
+                    <span class="nav-link-text ms-1">Data Master</span>
                 </div>
             </li>
-            <li class="nav-item border-start my-0 pt-2">
-                <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/laporan/laporan-absensi') ? 'active' : '' }}"
-                    href="/dashboard/admin/laporan/laporan-absensi">
-                    <span class="nav-link-text ms-1">Laporan Absensi</span>
-                </a>
-            </li>
+            @hasrole('Admin')
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-user-management') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-user-management">
+                        <span class="nav-link-text ms-1">Data User</span>
+                    </a>
+                </li>
+            @endhasrole
+            @hasrole('Admin|HRD')
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-pegawai') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-pegawai">
+                        <span class="nav-link-text ms-1">Data Pegawai</span>
+                    </a>
+                </li>
+            @endhasrole
+            @hasrole('Admin')
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jabatan') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-jabatan">
+                        <span class="nav-link-text ms-1">Data Jabatan</span>
+                    </a>
+                </li>
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/data-jenis-cuti') ? 'active' : '' }}"
+                        href="/dashboard/admin/data-jenis-cuti">
+                        <span class="nav-link-text ms-1">Data Jenis Cuti</span>
+                    </a>
+                </li>
+            @endhasrole
+
+            @hasanyrole('HRD')
+                <li class="nav-item">
+                    <a class="nav-link  {{ Request::is('dashboard/admin/list-pengajuan-cuti') ? 'active' : '' }}"
+                        href="/dashboard/admin/list-pengajuan-cuti">
+                        <div
+                            class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 576 512">
+                                <!-- Bagian pertama -->
+                                <path class="color-background" fill="#000000"
+                                    d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V299.6l-94.7 94.7c-8.2 8.2-14 18.5-16.8 29.7l-15 60.1c-2.3 9.4-1.8 19 1.4 27.8H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128z" />
+                                <!-- Bagian kedua -->
+                                <path class="color-foreground" fill="#000000"
+                                    d="M549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z" />
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Daftar Pengajuan Cuti</span>
+                    </a>
+                </li>
+                {{-- Laporan --}}
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <div
+                            class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                            <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>rtl</title>
+                                <g id="rtl" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="menu-alt-3" transform="translate(12.000000, 14.000000)" fill="#FFFFFF">
+                                        <path class="color-foreground"
+                                            d="M0,1.71428571 C0,0.76752 0.76752,0 1.71428571,0 L22.2857143,0 C23.2325143,0 24,0.76752 24,1.71428571 C24,2.66105143 23.2325143,3.42857143 22.2857143,3.42857143 L1.71428571,3.42857143 C0.76752,3.42857143 0,2.66105143 0,1.71428571 Z"
+                                            id="Path"></path>
+                                        <path class="color-background"
+                                            d="M0,10.2857143 C0,9.33894857 0.76752,8.57142857 1.71428571,8.57142857 L22.2857143,8.57142857 C23.2325143,8.57142857 24,9.33894857 24,10.2857143 C24,11.2325143 23.2325143,12 22.2857143,12 L1.71428571,12 C0.76752,12 0,11.2325143 0,10.2857143 Z"
+                                            id="Path"></path>
+                                        <path class="color-background"
+                                            d="M10.2857143,18.8571429 C10.2857143,17.9103429 11.0532343,17.1428571 12,17.1428571 L22.2857143,17.1428571 C23.2325143,17.1428571 24,17.9103429 24,18.8571429 C24,19.8039429 23.2325143,20.5714286 22.2857143,20.5714286 L12,20.5714286 C11.0532343,20.5714286 10.2857143,19.8039429 10.2857143,18.8571429 Z"
+                                            id="Path"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Laporan</span>
+                    </div>
+                </li>
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/laporan/laporan-absensi') ? 'active' : '' }}"
+                        href="/dashboard/admin/laporan/laporan-absensi">
+                        <span class="nav-link-text ms-1">Absensi</span>
+                    </a>
+                </li>
+                <li class="nav-item border-start my-0 pt-2">
+                    <a class="nav-link position-relative ms-0 ps-2 py-2 {{ Request::is('dashboard/admin/laporan/rekap-absensi') ? 'active' : '' }}"
+                        href="/dashboard/admin/laporan/rekap-absensi">
+                        <span class="nav-link-text ms-1">Rekap Absensi</span>
+                    </a>
+                </li>
+            @endhasanyrole
+
         </ul>
     </div>
 </aside>

@@ -8,7 +8,7 @@
                     <div class="card-header border-bottom pb-0">
                         <div class="d-sm-flex align-items-center">
                             <div>
-                                <h6 class="font-weight-semibold text-lg mb-0">List Pengajuan Cuti</h6>
+                                <h6 class="font-weight-semibold text-lg mb-0">Daftar Pengajuan Cuti</h6>
                                 <p class="text-sm"></p>
                             </div>
                         </div>
@@ -43,12 +43,12 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="/assets/img/pegawai/{{ $item->user->karyawan->gambar }}"
+                                                        <img src="/assets/img/pegawai/{{ $item->karyawan->gambar }}"
                                                             class="avatar avatar-sm rounded-circle me-2" alt="user1">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center ms-1">
                                                         <h6 class="mb-0 text-sm font-weight-semibold">
-                                                            {{ $item->user->karyawan->n_lengkap }}</h6>
+                                                            {{ $item->karyawan->n_lengkap }}</h6>
                                                         <p class="text-sm text-secondary mb-0">{{ $item->email }}
                                                         </p>
                                                     </div>
@@ -62,7 +62,7 @@
                                             <td class="text-center align-middle bg-transparent border-bottom">
                                                 <a href="/assets/file/pengajuan-cuti/{{ $item->surat }}"
                                                     class="btn btn-outline-dark"
-                                                    download="Surat-Cuti-{{ $item->user->karyawan->n_depan }}">Unduh</a>
+                                                    download="Surat-Cuti-{{ $item->karyawan->n_depan }}">Unduh</a>
                                             </td>
                                             <td>
                                                 <p class="text-center text-secondary text-sm font-weight-normal">

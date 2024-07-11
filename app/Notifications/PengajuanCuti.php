@@ -48,11 +48,11 @@ class PengajuanCuti extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'user_id' => $this->pengajuancuti->user_id,
+            'karyawan_id' => $this->pengajuancuti->karyawan_id,
             'pengajuancuti' => $this->pengajuancuti->id,
             'title' => 'Pengajuan Cuti',
             'messages' => 'Alasan Cuti ' . $this->pengajuancuti->catatan,
-            'nama' => $this->pengajuancuti->user->nama,
+            'nama' => $this->pengajuancuti->karyawan->n_lengkap,
         ];
     }
 }

@@ -25,7 +25,7 @@ class KaryawanController extends Controller
 
         return view('dashboard.karyawan.index', [
             'title' => 'Data Pegawai',
-            'karyawan' => $query->paginate(1)->appends(['search' => $request->input('search')]),
+            'karyawan' => $query->paginate(10)->appends(['search' => $request->input('search')]),
             'jabatans' => Jabatan::all()
         ]);
     }

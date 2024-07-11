@@ -167,17 +167,7 @@
                     today: 'Hari Ini',
                 },
                 events: [
-                    @foreach ($list as $item)
-                        {
-                            title: '{{ $item->jeniscuti->n_cuti }}',
-                            start: '{{ \Carbon\Carbon::parse($item->tgl_mulai)->format('Y-m-d') }}',
-                            end: '{{ \Carbon\Carbon::parse($item->tgl_selesai)->format('Y-m-d') }}' +
-                                'T24:00:00',
-                            color: '{{ $item->status == 'Accept' ? '#0d6efd' : '#ffc107' }}',
-                            allDay: true,
 
-                        },
-                    @endforeach
 
                 ],
                 dayCellDidMount: function(info) {

@@ -21,7 +21,7 @@ class PengajuanCutiController extends Controller
         return view('ui-karyawan.pengajuan.index', [
             'title' => 'Data Pengajuan Cuti/Izin',
             'jcuti' => JenisCuti::all(),
-            'list' => PengajuanCuti::where('user_id', Auth()->user()->id)->get()
+            'list' => PengajuanCuti::where('karyawan_id', Auth()->user()->karyawan->id)->get()
         ]);
     }
 
@@ -76,7 +76,7 @@ class PengajuanCutiController extends Controller
             $validator['surat'] = $nama_surat;
         }
         $validator['status'] = 'Pending';
-        $validator['user_id'] = auth()->user()->id;
+        $validator['karyawan_id'] = $karyawan->id;
 
         $pengajuancuti = PengajuanCuti::create($validator);
         $adminRole = Role::where('name', 'HRD')->first();

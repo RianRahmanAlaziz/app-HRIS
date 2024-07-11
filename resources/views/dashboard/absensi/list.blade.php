@@ -61,16 +61,6 @@
                             <div class="row">
                                 <div class="col-6">
                                     <button type="submit" class="btn btn-dark w-100">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
-                                            viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                            <path fill="#ffffff"
-                                                d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
-                                        </svg>
-                                        Cetak
-                                    </button>
-                                </div>
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-dark w-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15px"
                                             height="15px"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                             <path fill="#ffffff"
@@ -78,6 +68,31 @@
                                         </svg>
                                         Submit</button>
                                 </div>
+                                @if ($absensi->isNotEmpty() || $cuti->isNotEmpty())
+                                    <div class="col-6">
+                                        <button type="submit" formtarget="_blank" name="cetak" id="cetak"
+                                            class="btn btn-dark w-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
+                                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                <path fill="#ffffff"
+                                                    d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                                            </svg>
+                                            Cetak
+                                        </button>
+                                    </div>
+                                @else
+                                    <div class="col-6">
+                                        <button type="submit" name="cetak" id="cetak" class="btn btn-dark w-100"
+                                            disabled>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"
+                                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                <path fill="#ffffff"
+                                                    d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                                            </svg>
+                                            Cetak
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -108,19 +123,24 @@
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                                 Status</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                Waktu Absensi</th>
+                                                Waktu Absensi Masuk</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                Waktu Selesai</th>
+                                                Waktu Absensi Selesai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php
                                             $all_dates = [];
                                             foreach ($absensi as $item) {
+                                                $waktu_absensi = $item->created_at->format('H:i:s');
+                                                $status =
+                                                    $item->created_at->format('H:i:s') > '08:00:00'
+                                                        ? 'Terlambat'
+                                                        : 'Hadir';
                                                 $all_dates[$item->created_at->format('Y-m-d')] = [
-                                                    'status' => 'Hadir',
-                                                    'waktu_absensi' => $item->created_at->format('H:i:s'),
-                                                    'waktu_selesai' => $item->updated_at->format('H:i:s'),
+                                                    'status' => $status,
+                                                    'waktu_absensi' => $waktu_absensi,
+                                                    'waktu_selesai' => $item->exit_time ?? '-',
                                                 ];
                                             }
                                             foreach ($cuti as $item) {
@@ -169,7 +189,7 @@
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="badge badge-sm border border-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }} text-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }} bg-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Cuti' ? 'warning' : 'danger') }}">{{ $data['status'] }}</span>
+                                                        class="badge badge-sm border border-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Terlambat' ? 'warning' : ($data['status'] == 'Cuti' ? 'warning' : 'danger')) }} text-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Terlambat' ? 'warning' : ($data['status'] == 'Cuti' ? 'warning' : 'danger')) }} bg-{{ $data['status'] == 'Hadir' ? 'success' : ($data['status'] == 'Terlambat' ? 'warning' : ($data['status'] == 'Cuti' ? 'warning' : 'danger')) }}">{{ $data['status'] }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
@@ -184,16 +204,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="border-top  text-bg-dark py-3 px-3 d-flex align-items-center">
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         @endif
 
-        @if ($filter && ($absensi->isEmpty() || $cuti->isEmpty()))
+        @if ($filter && ($absensi->isEmpty() && $cuti->isEmpty()))
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card border  shadow-lg mb-4">
@@ -218,9 +236,9 @@
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                                 Status</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                Waktu Absensi</th>
+                                                Waktu Absensi Masuk</th>
                                             <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                                Waktu Selesai</th>
+                                                Waktu Absensi Selesai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -232,37 +250,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="border-top  text-bg-dark py-3 px-3 d-flex align-items-center">
-                                <button class="btn btn-sm btn-white d-sm-block d-none mb-0">Previous</button>
-                                <nav aria-label="..." class="ms-auto">
-                                    <ul class="pagination pagination-light mb-0">
-                                        <li class="page-item " aria-current="page">
-                                            <span class="page-link font-weight-bold">1</span>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold" href="javascript:;">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold d-sm-inline-flex d-none"
-                                                href="javascript:;">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold" href="javascript:;">...</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold d-sm-inline-flex d-none"
-                                                href="javascript:;">8</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold" href="javascript:;">9</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link border-0 font-weight-bold" href="javascript:;">10</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <button class="btn btn-sm btn-white d-sm-block d-none mb-0 ms-auto">Next</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>

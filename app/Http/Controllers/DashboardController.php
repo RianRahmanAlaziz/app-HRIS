@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         $hariini = Carbon::today();
         $rekapabsensi = Absensi::whereDate('created_at', $hariini)
-            ->selectRaw('COUNT(*) as jmlhadir, SUM(IF(entry_time > "07:00:00", 1, 0)) as jmlterlambat')
+            ->selectRaw('COUNT(*) as jmlhadir, SUM(IF(entry_time > "08:00:00", 1, 0)) as jmlterlambat')
             ->first();
         $rekap = PengajuanCuti::where('status', 'Accept')
             ->where(function ($query) use ($hariini) {
@@ -34,8 +34,7 @@ class DashboardController extends Controller
             'rekap' => $rekapabsensi,
             'rekapizin' => $rekap,
             'saldo' => Karyawan::where('user_id', Auth()->user()->id)->value('saldo'),
-            'list' => PengajuanCuti::where('user_id', Auth()->user()->id)->whereIn('status', ['Pending', 'Accept'])
-                ->get()
+
         ]);
     }
 
@@ -66,10 +65,12 @@ class DashboardController extends Controller
         ]);
         $pengajuancuti = PengajuanCuti::findOrFail($id);
         $pengajuancuti->update($validator);
-        $pengajuancutiUser = $pengajuancuti->user;
+        $pengajuancutiUser = $pengajuancuti->karyawan;
+
         $Role = Role::where('name', 'Karyawan')->first();
 
-        $karyawan = $Role->users()->where('id', $pengajuancutiUser->id)->first();
+        $karyawan = $Role->users()->where('id', $pengajuancutiUser->user_id)->first();
+
         Notification::send($karyawan, new StatusPengajuan($pengajuancuti));
         return redirect('/dashboard/admin/list-pengajuan-cuti')->with('success', 'Pengajuan Cuti ' . $validator['status']);
     }

@@ -38,7 +38,7 @@
                             @method('PUT')
                 @endif
                 @csrf
-                @if (date('H') >= 17)
+                @if (date('H') >= 20)
                     <h6 class="font-weight-semibold text-center text-lg mb-0"> Absensi Ditutup</h6>
                 @else
                     @if (!$absensi)
@@ -157,9 +157,15 @@
                                 <button type="submit" class="btn btn-dark"> Absen Masuk</button>
                             </div>
                         @else
-                            <div class="d-flex justify-content-end mt-5">
-                                <button type="submit" class="btn btn-dark"> Absen Keluar/Selesai</button>
-                            </div>
+                            @if (date('H') >= 17)
+                                <div class="d-flex justify-content-end mt-5">
+                                    <button type="submit" class="btn btn-dark "> Absen Keluar/Selesai</button>
+                                </div>
+                            @else
+                                <div class="d-flex justify-content-end mt-5">
+                                    <button type="submit" class="btn btn-dark " disabled> Absen Keluar/Selesai</button>
+                                </div>
+                            @endif
                         @endif
                     @endif
                 @endif

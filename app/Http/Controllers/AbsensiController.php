@@ -129,7 +129,6 @@ class AbsensiController extends Controller
             $tahun = request()->tahun;
 
             $kr = Karyawan::findOrFail($karyawan_id);
-            $user_id =  $kr->user->id;
 
             $absensi = Absensi::where('karyawan_id', $karyawan_id)
                 ->whereMonth('created_at', $bulan)
@@ -137,7 +136,7 @@ class AbsensiController extends Controller
                 ->get();
 
             // Fetch cuti
-            $cuti = PengajuanCuti::where('user_id', $user_id)
+            $cuti = PengajuanCuti::where('karyawan_id', $karyawan_id)
                 ->where('status', 'Accept')
                 ->whereMonth('tgl_mulai', '<=', $bulan)
                 ->whereMonth('tgl_selesai', '>=', $bulan)
@@ -147,6 +146,10 @@ class AbsensiController extends Controller
 
             $filter = true;
         }
+        $todayDate = date('Y');
+        $todayMonth = date('n'); // Get current month as number
+        $todayMonthName = $namabulan[$todayMonth];
+
         $data = [
             'pegawai' => $pegawai,
             'title' => 'Laporan Absensi',
@@ -154,36 +157,73 @@ class AbsensiController extends Controller
             'filter' => $filter,
             'absensi' => $absensi,
             'cuti' => $cuti,
+            'todayDate' => $todayDate,
+            'todayMonthName' => $todayMonthName,
         ];
+
+        if (isset($kr)) {
+            $data['karyawan'] = $kr;
+        }
+
+        if (request()->has('cetak')) {
+
+            return view('dashboard.absensi.cetak', $data);
+        }
 
         return view('dashboard.absensi.list', $data);
     }
 
-    // function cetak(Request $request)
-    // {
-    //     $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
-    //     $pegawai = Karyawan::orderBy('n_depan')->get();
-    //     $request->validate([
-    //         'karyawan_id' => 'required',
-    //     ]);
-    //     $karyawan_id = $request->karyawan_id;
-    //     $bulan = $request->bulan;
-    //     $tahun = $request->tahun;
+    public function rekap()
+    {
+        $absensi = collect();
+        $cuti = collect();
+        $namabulan = ["", "January", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember",];
+        $filter = false;
 
-    //     // $karyawan = Karyawan::where('id', $karyawan_id)->get();
-    //     $absensi = Absensi::where('karyawan_id', $karyawan_id)
-    //         ->whereRaw('MONTH(created_at)="' . $bulan . '"')
-    //         ->whereRaw('YEAR(created_at)="' . $tahun . '"')
-    //         ->get();
+        if (request()->filled(['bulan', 'tahun'])) {
+            $this->validate(request(), [
+                'bulan' => 'required',
+                'tahun' => 'required',
+            ]);
 
-    //     $filter = true;
-    //     $data = [
-    //         'pegawai' => $pegawai,
-    //         'absensi' => $absensi,
-    //         'title' => 'Laporan Absensi',
-    //         'namabulan' => $namabulan,
-    //         'filter' => $filter,
-    //     ];
-    //     return view('dashboard.absensi.list', $data);
-    // }
+            $bulan = request()->bulan;
+            $tahun = request()->tahun;
+
+            $absensi = Absensi::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->get();
+
+            // Fetch cuti
+            $cuti = PengajuanCuti::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->get();
+
+            $filter = true;
+        }
+        $employees = Karyawan::all();
+
+        $todayDate = date('Y');
+        $todayMonth = date('n'); // Get current month as number
+        $todayMonthName = $namabulan[$todayMonth];
+
+        $data = [
+            'title' => 'Rekap Absensi',
+            'namabulan' => $namabulan,
+            'filter' => $filter,
+            'absensi' => $absensi,
+            'cuti' => $cuti,
+            'todayDate' => $todayDate,
+            'todayMonthName' => $todayMonthName,
+            'employees' => $employees,
+        ];
+
+
+
+        if (request()->has('cetak')) {
+
+            return view('dashboard.absensi.cetakrekap', $data);
+        }
+
+        return view('dashboard.absensi.rekap', $data);
+    }
 }

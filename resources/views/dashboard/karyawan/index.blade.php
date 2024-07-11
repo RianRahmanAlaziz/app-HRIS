@@ -49,12 +49,13 @@
                                     <tr>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7" width="5%">No
                                         </th>
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7">Nama
+                                        <th class="text-secondary text-xs font-weight-semibold opacity-7" width="5%">
+                                            Nama
                                         </th>
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
                                             Jabatan</th>
-                                        <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
-                                            Status</th>
+                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
+                                            Alamat</th>
                                         <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                             No Telepon</th>
                                         <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">Aksi
@@ -86,9 +87,10 @@
                                                     {{ $item->jabatan->n_jabatan }}</p>
 
                                             </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span
-                                                    class="badge badge-sm border border-success text-success bg-success">online</span>
+                                            <td>
+                                                <p class="text-secondary text-sm font-weight-normal">
+                                                    {{ \Illuminate\Support\Str::limit($item->alamat, 40) }}</p>
+
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span

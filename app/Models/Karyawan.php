@@ -24,4 +24,9 @@ class Karyawan extends Model
     {
         return $this->hasMany(Absensi::class);
     }
+
+    public function pengajuancuti()
+    {
+        return $this->hasOne(PengajuanCuti::class);
+    }
 }

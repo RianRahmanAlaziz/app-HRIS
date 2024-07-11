@@ -21,7 +21,7 @@
     </a>
     <a href="/dashboard/pengajuan-cuti" class="item {{ Request::is('dashboard/pengajuan-cuti') ? 'active' : '' }}">
         <div class="col">
-            <ion-icon name="calendar-outline" role="img" class="md hydrated"
+            <ion-icon name="document-text-outline" role="img" class="md hydrated"
                 aria-label="document text outline"></ion-icon>
             <strong>Izin</strong>
         </div>

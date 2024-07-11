@@ -38,10 +38,10 @@ Route::controller(Logincontroller::class)->group(function () {
 });
 
 
-
+Route::post('/dashboard/absensi/get-location', [AbsensiController::class, 'location']);
 
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
-    Route::post('/absensi/get-location', [AbsensiController::class, 'location']);
+
     // Admin
     Route::middleware(['role:Admin|HRD'])->prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -56,6 +56,9 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
             // Laporan
             Route::get('/laporan/laporan-absensi', 'laporan');
             Route::post('/laporan/laporan-absensi', 'laporan');
+
+            Route::get('/laporan/rekap-absensi', 'rekap');
+            Route::post('/laporan/rekap-absensi', 'rekap');
         });
         Route::get('/user-profil', [UserController::class, 'userprofil']);
     });
@@ -66,8 +69,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::controller(UikaryawanController::class)->group(function () {
             Route::get('/', 'index');
             Route::get('/user-profil', 'userprofil');
-            Route::post('//user-profil/{id}/update', 'edituserprofil');
+            Route::post('/user-profil/{id}/update', 'edituserprofil');
             Route::get('/histori-absensi', 'history');
+            Route::post('/histori-absensi', 'history');
+            Route::get('/pesan', 'pesan');
+            Route::post('/mark-notifications-read', 'markAsRead')->name('notifications.markAsRead');
         });
 
         Route::controller(AbsensiController::class)->group(function () {
